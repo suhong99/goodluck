@@ -9,10 +9,10 @@ export default function Scene() {
 
   return (
     <>
-      <mesh scale={1.3} rotation-x={-Math.PI / 2}>
+      <mesh scale={1.3} rotation-x={-Math.PI / 2} position={[2, 0, 0]}>
         <primitive object={glb.scene}></primitive>
       </mesh>
-      <mesh scale={1.3} rotation-x={-Math.PI / 2}>
+      <mesh scale={1.3}>
         <primitive object={glb2.scene}></primitive>
       </mesh>
     </>
