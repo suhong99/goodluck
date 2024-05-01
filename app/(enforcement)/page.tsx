@@ -1,9 +1,6 @@
-// import Image from 'next/image';
-// import styles from './page.module.css';
-
 import { auth } from '@/auth';
+import EnforceScene from '@/features/enforcement/EnforceScene';
 import CanvasLayout from '@/shared/components/3dmodel';
-import Scene from '@/shared/components/3dmodel/Scene';
 import Header from '@/shared/components/Header';
 
 export default async function Home() {
@@ -14,7 +11,7 @@ export default async function Home() {
       <Header />
       <div>{JSON.stringify(session, null, 2)}</div>
       <CanvasLayout>
-        <Scene />
+        <EnforceScene />
       </CanvasLayout>
     </main>
   );
