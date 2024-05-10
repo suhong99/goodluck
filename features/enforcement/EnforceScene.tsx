@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import Handler from './components/Handler';
 
 export default function EnforceScene() {
-  const glb = useLoader(GLTFLoader, '/hammer.glb');
+  // const glb = useLoader(GLTFLoader, '/hammer.glb');
   const glb2 = useLoader(GLTFLoader, '/shiba.glb');
 
   return (
