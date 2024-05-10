@@ -2,6 +2,7 @@
 
 import { Loader, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 
 export default function CanvasLayout({
   children,
@@ -18,7 +19,9 @@ export default function CanvasLayout({
           minDistance={2}
           maxDistance={15}
         />
-        {children}
+        <>
+          <Suspense fallback={null}>{children}</Suspense>
+        </>
       </Canvas>
       <Loader />
     </>
