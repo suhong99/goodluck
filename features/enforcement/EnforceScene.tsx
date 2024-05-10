@@ -3,6 +3,7 @@
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import Handler from './components/Handler';
+import { Suspense } from 'react';
 
 export default function EnforceScene() {
   // const glb = useLoader(GLTFLoader, '/hammer.glb');

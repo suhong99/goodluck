@@ -12,16 +12,16 @@ export default function CanvasLayout({
   return (
     <>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <Suspense fallback={null}>
-          <color attach="background" args={['rgb(195, 195, 195) 100%)']} />
-          <OrbitControls
-            makeDefault
-            enablePan={false}
-            minDistance={2}
-            maxDistance={15}
-          />
-          {children}
-        </Suspense>
+        <color attach="background" args={['rgb(195, 195, 195) 100%)']} />
+        <OrbitControls
+          makeDefault
+          enablePan={false}
+          minDistance={2}
+          maxDistance={15}
+        />
+        <>
+          <Suspense fallback={null}>{children}</Suspense>
+        </>
       </Canvas>
       <Loader />
     </>
