@@ -12,7 +12,7 @@ export default function CanvasLayout({
   return (
     <>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <color attach="background" args={['rgb(195, 195, 195) 100%)']} />
+        <color attach="background" args={['rgb(2,22,49) 100%)']} />
         <OrbitControls
           makeDefault
           enablePan={false}
