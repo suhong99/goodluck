@@ -11,3 +11,7 @@ export const BREAK_POINT = {
   lg: 1600,
   vlg: 1900,
 };
+
+export const COLLECTIONS = {
+  ENFORCEMENT: 'ENFORCEMENT',
+};
