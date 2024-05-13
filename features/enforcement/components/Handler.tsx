@@ -5,8 +5,10 @@ import { useState } from 'react';
 import style from '@/app/(enforcement)/enforcement.module.css';
 import { isValidPattern } from '@/shared/utils/checker';
 import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
+import { useEnforceStore } from '@/shared/store/enforcecement';
 
 export default function Handler() {
+  const { status, records, update } = useEnforceStore();
   const [percent, setPercent] = useState<string>('');
   const [result, setResult] = useState('시도해주세요');
   const [count, setCount] = useState(0);
@@ -27,8 +29,10 @@ export default function Handler() {
     const random = Math.random();
     if (random * 100 < Number(percent)) {
       setResult(`${percent}퍼의 확률 성공`);
+      update({ percent: Number(percent), status: '성공' });
     } else {
       setResult(`${percent ?? 0}퍼의 확률 실패`);
+      update({ percent: Number(percent), status: '실패' });
     }
     setCount(count + 1);
   };
@@ -48,6 +52,14 @@ export default function Handler() {
           <button onClick={onEnhance}>클릭</button>
         </div>
         <div>{result}</div>
+        <div>{status}</div>
+        {records.map(({ id, percent, status }) => (
+          <div key={id}>
+            <p>
+              {id}번째 {percent}% : {status}
+            </p>
+          </div>
+        ))}
         <div>{count}</div>
       </div>
     </Html>
