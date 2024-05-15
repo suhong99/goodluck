@@ -13,5 +13,6 @@ export const BREAK_POINT = {
 };
 
 export const COLLECTIONS = {
+  USERS: 'USERS',
   ENFORCEMENT: 'ENFORCEMENT',
 };

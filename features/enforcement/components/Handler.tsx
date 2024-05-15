@@ -6,19 +6,16 @@ import style from '@/app/(enforcement)/enforcement.module.css';
 import { isValidPattern } from '@/shared/utils/checker';
 import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
 import { useEnforceStore } from '@/store/enforcecement';
-import { collection, doc, writeBatch } from 'firebase/firestore';
-import { store } from '@/remote/firebase';
-import { COLLECTIONS } from '@/shared/contants';
+
 import { useSession } from 'next-auth/react';
+import { addEnforcementRecord, getEnforceRecords } from '@/remote/enforcement';
 
 export default function Handler() {
   const { status, records, update } = useEnforceStore();
   const [percent, setPercent] = useState<string>('');
   const [result, setResult] = useState('시도해주세요');
-  const [count, setCount] = useState(0);
 
   const { data } = useSession();
-  console.log(data);
   const setValidInput = (value: string) => {
     if (!isValidPattern(value, FLOAT_POINT_TWO)) return;
 
@@ -34,14 +31,6 @@ export default function Handler() {
   const onEnforce = () => {
     const random = Math.random();
     const isSuccess = random * 100 < Number(percent) ? true : false;
-    const batch = writeBatch(store);
-    const enforceRef = doc(collection(store, COLLECTIONS.ENFORCEMENT));
-    batch.set(enforceRef, {
-      date: new Date(),
-      percent: Number(percent),
-      status: isSuccess ? '성공' : '실패',
-    });
-
     if (isSuccess) {
       setResult(`${percent}퍼의 확률 성공`);
       update({ percent: Number(percent), status: '성공' });
@@ -50,7 +39,13 @@ export default function Handler() {
       update({ percent: Number(percent), status: '실패' });
     }
 
-    setCount(count + 1);
+    const userId = data?.user?.email;
+    userId &&
+      addEnforcementRecord({
+        id: userId,
+        percent: Number(percent),
+        status: isSuccess ? '성공' : '실패',
+      });
   };
 
   return (
@@ -77,7 +72,14 @@ export default function Handler() {
             </p>
           </div>
         ))}
-        <div>{count}</div>
+        <button
+          onClick={async () =>
+            data?.user?.email &&
+            console.log(await getEnforceRecords(data?.user?.email))
+          }
+        >
+          데이터 얻기
+        </button>
       </div>
     </Html>
   );
