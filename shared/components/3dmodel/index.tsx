@@ -1,5 +1,6 @@
 'use client';
 
+import { color } from '@/shared/contants/color';
 import { Loader, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
@@ -12,7 +13,7 @@ export default function CanvasLayout({
   return (
     <>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <color attach="background" args={['rgb(2,22,49) 100%)']} />
+        <color attach="background" args={[`${color.bg} 100%)`]} />
         <OrbitControls
           makeDefault
           enablePan={false}
