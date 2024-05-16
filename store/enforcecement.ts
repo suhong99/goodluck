@@ -17,10 +17,23 @@ export const useEnforceStore = create<EnforceState>()((set) => ({
   status: '미도전',
   records: [],
   trial: 0,
-  update: ({ percent, status }) =>
-    set((state) => ({
-      status: status,
-      trial: state.trial + 1,
-      records: state.records.concat({ id: state.trial + 1, percent, status }),
-    })),
+  update: ({ percent, status }) => {
+    set((state) => {
+      const { trial, records } = state;
+      const updatedRecords =
+        records.length >= 20 ? records.slice(0, -1) : records;
+      return {
+        status,
+        trial: trial + 1,
+        records: [
+          {
+            id: trial + 1,
+            percent,
+            status,
+          },
+          ...updatedRecords,
+        ],
+      };
+    });
+  },
 }));

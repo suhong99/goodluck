@@ -1,5 +1,4 @@
 import {
-  DocumentSnapshot,
   collection,
   doc,
   getDocs,
