@@ -18,7 +18,6 @@ export default function EnforceHtml() {
   const [result, setResult] = useState('강화를 시도해주세요');
 
   const { data } = useSession();
-
   const setValidInput = (value: string) => {
     if (!isValidPattern(value, FLOAT_POINT_TWO)) return;
 
