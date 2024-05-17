@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { useEnforceStore } from '@/store/enforcecement';
 import { isValidPattern } from '@/shared/utils/checker';
 import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
+import Handler from './Handler';
 
 export default function EnforceHtml() {
   const { status, update } = useEnforceStore();
@@ -73,6 +74,7 @@ export default function EnforceHtml() {
         <div className={style.row}>
           <div>{result}</div>
         </div>
+        <Handler></Handler>
         <RecordList />
       </div>
     </Html>

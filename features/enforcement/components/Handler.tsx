@@ -9,7 +9,7 @@ export const SessionContext = React.createContext?.<
 export default function Handler() {
   // const value = React.useContext(SessionContext);
   // console.log(value, '머임');
-  // const { data } = useSession();
+  const { data } = useSession();
 
   return <div>gd</div>;
 }
