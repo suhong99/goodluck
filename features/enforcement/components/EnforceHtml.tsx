@@ -6,7 +6,7 @@ import style from '@/app/(enforcement)/enforcement.module.css';
 import RecordList from './RecordList';
 import { addEnforcementRecord } from '@/remote/enforcement';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useEnforceStore } from '@/store/enforcecement';
 import { isValidPattern } from '@/shared/utils/checker';
 import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
@@ -17,6 +17,7 @@ export default function EnforceHtml() {
   const [result, setResult] = useState('강화를 시도해주세요');
 
   const { data } = useSession();
+
   const setValidInput = (value: string) => {
     if (!isValidPattern(value, FLOAT_POINT_TWO)) return;
 
@@ -50,11 +51,12 @@ export default function EnforceHtml() {
     //     status: isSuccess ? '성공' : '실패',
     //   });
   };
+
   return (
     <Html fullscreen>
       <div className={style.wrapper}>
         <div className={style.row}>
-          <span className={style.text}>강화 확률(%) :</span>
+          <span>강화 확률(%) :</span>
           <input
             type="text"
             className={style.input}
@@ -71,7 +73,6 @@ export default function EnforceHtml() {
         <div className={style.row}>
           <div>{result}</div>
         </div>
-
         <RecordList />
       </div>
     </Html>

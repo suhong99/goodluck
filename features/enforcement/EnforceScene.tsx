@@ -27,6 +27,7 @@ export default function EnforceScene() {
           <primitive object={sword.scene}></primitive>
         </mesh>
         {status === '성공' && (
+          //TODO:  애니메이션 효과 생기면 좋을듯
           <SpotLight
             color={0xc7d273}
             position={[0.1, 2, -0.1]}
