@@ -9,25 +9,38 @@
 }
 
 .modal {
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   opacity: 50%;
   border-radius: 8px;
-  overflow: hidden;
-  overflow: auto; /* 영역을 넘어가는 콘텐츠를 스크롤 가능하게 함 */
+  overflow: auto;
   width: 300px;
-  height: 400px; /* 높이를 400px로 지정 */
+  max-height: 400px;
   padding: 24px;
   box-sizing: border-box;
   z-index: 911;
-  -ms-overflow-style: none; /* IE and Edge에서 스크롤바 숨기기 */
-  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
 .modal::-webkit-scrollbar {
   display: none;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+}
+
+.closeBtn:hover {
+  color: #000;
 }
