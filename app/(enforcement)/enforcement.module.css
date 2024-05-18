@@ -29,20 +29,26 @@
 
 .button {
   border: none;
-  padding: 5px;
+  padding: 5px 16px;
   border-radius: 5px;
   background-color: #323333;
   color: white;
   font-weight: bold;
   cursor: pointer;
   height: 40px;
-  width: 60px;
   font-size: 18px;
 }
 
 .button:hover {
   background-color: #283747;
   opacity: 60%;
+}
+
+.mobile {
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
 }
 
 .recordList {
@@ -60,6 +66,14 @@
   }
 }
 
+.mobileList {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  color: black;
+  font-weight: 600;
+  font-size: 16px;
+}
 .subRecordList {
   display: flex;
   flex-direction: column;
@@ -81,7 +95,6 @@
   }
 
   .button {
-    width: 52px;
     font-size: 16px;
   }
 }

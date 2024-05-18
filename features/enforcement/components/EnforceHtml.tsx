@@ -10,11 +10,18 @@ import React, { useState } from 'react';
 import { useEnforceStore } from '@/store/enforcecement';
 import { isValidPattern } from '@/shared/utils/checker';
 import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
+import { useModalContext } from '@/shared/components/portal/ModalContext';
 
 export default function EnforceHtml() {
   const { status, update } = useEnforceStore();
   const [percent, setPercent] = useState<string>('');
   const [result, setResult] = useState('강화를 시도해주세요');
+
+  const { open } = useModalContext();
+
+  const openRecords = () => {
+    open({ type: 'enforce' });
+  };
 
   const { data } = useSession();
 
@@ -53,7 +60,7 @@ export default function EnforceHtml() {
   };
 
   return (
-    <Html fullscreen>
+    <Html fullscreen zIndexRange={[300, 0]}>
       <div className={style.wrapper}>
         <div className={style.row}>
           <span>강화 확률(%) :</span>
@@ -72,6 +79,12 @@ export default function EnforceHtml() {
         </div>
         <div className={style.row}>
           <div>{result}</div>
+          <button
+            className={`${style.button} ${style.mobile}`}
+            onClick={openRecords}
+          >
+            데이터 보기
+          </button>
         </div>
         <RecordList />
       </div>

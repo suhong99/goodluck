@@ -27,3 +27,19 @@ export default function RecordList() {
     </div>
   );
 }
+
+export function MobileRecordList() {
+  const { records } = useEnforceStore();
+
+  return (
+    <div className={style.mobileList}>
+      <div className={style.subRecordList}>
+        {records.map(({ id, percent, status }) => (
+          <div key={id}>
+            {id}회 {percent}% {status}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
