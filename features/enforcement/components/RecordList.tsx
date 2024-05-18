@@ -34,11 +34,15 @@ export function MobileRecordList() {
   return (
     <div className={style.mobileList}>
       <div className={style.subRecordList}>
-        {records.map(({ id, percent, status }) => (
-          <div key={id}>
-            {id}회 {percent}% {status}
-          </div>
-        ))}
+        {records.length > 0 ? (
+          records.map(({ id, percent, status }) => (
+            <div key={id}>
+              {id}회 {percent}% {status}
+            </div>
+          ))
+        ) : (
+          <div>기록된 내용이 없습니다</div>
+        )}
       </div>
     </div>
   );

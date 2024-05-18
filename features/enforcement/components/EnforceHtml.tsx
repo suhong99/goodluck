@@ -20,6 +20,7 @@ export default function EnforceHtml() {
   const { open } = useModalContext();
 
   const openRecords = () => {
+    console.log('열기');
     open({ type: 'enforce' });
   };
 
