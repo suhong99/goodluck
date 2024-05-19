@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+  border-bottom: 1px solid gray;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button > span {
+  font-size: 0.8rem;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
