@@ -11,9 +11,16 @@ export function SignIn() {
         await signIn('google');
       }}
     >
-      <button type="submit" className={styles.button}>
-        <Image src="/login.svg" alt="Login" width={40} height={40} />
-        <span>로그인</span>
+      <button
+        type="submit"
+        style={{
+          padding: 0,
+          border: 'none',
+          background: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        <Image src="/google_signin.png" alt="Login" width={160} height={40} />
       </button>
     </form>
   );
