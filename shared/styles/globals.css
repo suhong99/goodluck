@@ -1,9 +1,9 @@
 :root {
-  --bp-vsm: 300;
-  --bp-sm: 600;
-  --bp-m: 1000;
-  --bp-lg: 1600;
-  --bp-vlg: 1900;
+  --bp-vsm: 300px;
+  --bp-sm: 600px;
+  --bp-m: 1000px;
+  --bp-lg: 1600px;
+  --bp-vlg: 1900px;
 }
 
 html,
