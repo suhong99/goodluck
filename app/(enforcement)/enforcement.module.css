@@ -46,7 +46,7 @@
 
 .mobile {
   display: none;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: var(--bp-sm)) {
     display: block;
   }
 }
@@ -61,7 +61,7 @@
   color: white;
   font-weight: 700;
   font-size: 20px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: var(--bp-sm)) {
     display: none;
   }
 }
@@ -81,12 +81,12 @@
   flex-direction: column;
   gap: 8px;
   margin-inline: 15%;
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: var(--bp-m)) {
     margin-inline: 10%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: var(--bp-sm)) {
   .row {
     font-size: 18px;
   }
