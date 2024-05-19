@@ -23,7 +23,7 @@ const Context = createContext<ModalContextValue | undefined>(undefined);
 
 const defaultValues: ModalProps = {
   open: false,
-  close,
+  close: () => {},
 };
 
 export function ModalContextProvider({

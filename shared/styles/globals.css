@@ -1,3 +1,11 @@
+:root {
+  --bp-vsm: 300;
+  --bp-sm: 600;
+  --bp-m: 1000;
+  --bp-lg: 1600;
+  --bp-vlg: 1900;
+}
+
 html,
 main,
 body {
