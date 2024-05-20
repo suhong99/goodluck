@@ -40,15 +40,11 @@
 }
 
 .button:hover {
-  background-color: #283747;
-  opacity: 60%;
+  opacity: 70%;
 }
 
 .mobile {
   display: none;
-  @media screen and (max-width: var(--bp-sm)) {
-    display: block;
-  }
 }
 
 .recordList {
@@ -61,9 +57,6 @@
   color: white;
   font-weight: 700;
   font-size: 20px;
-  @media screen and (max-width: var(--bp-sm)) {
-    display: none;
-  }
 }
 
 .mobileList {
@@ -81,12 +74,12 @@
   flex-direction: column;
   gap: 8px;
   margin-inline: 15%;
-  @media screen and (max-width: var(--bp-m)) {
+  @media screen and (max-width: 1000px) {
     margin-inline: 10%;
   }
 }
 
-@media screen and (max-width: var(--bp-sm)) {
+@media screen and (max-width: 600px) {
   .row {
     font-size: 18px;
   }
@@ -98,5 +91,12 @@
 
   .button {
     font-size: 16px;
+  }
+
+  .mobile {
+    display: block;
+  }
+  .recordList {
+    display: none;
   }
 }
