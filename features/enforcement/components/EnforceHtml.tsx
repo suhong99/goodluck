@@ -51,13 +51,13 @@ export default function EnforceHtml() {
 
     //TODO: 임시 미적용 마이페이지 만들고 다시
 
-    // const userId = data?.user?.email;
-    // userId &&
-    //   addEnforcementRecord({
-    //     id: userId,
-    //     percent: Number(percent),
-    //     status: isSuccess ? '성공' : '실패',
-    //   });
+    const userId = data?.user?.email;
+    userId &&
+      addEnforcementRecord({
+        id: userId,
+        percent: Number(percent),
+        status: isSuccess ? '성공' : '실패',
+      });
   };
 
   return (

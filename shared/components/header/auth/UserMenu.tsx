@@ -20,7 +20,11 @@ export default function UserMenu({ image }: { image: string }) {
       </button>
       {isOpen && (
         <div className={style.pop_over}>
-          <Link className={style.pop_button} href="/mypage">
+          <Link
+            className={style.pop_button}
+            href="/mypage"
+            onClick={() => toggleIsOpen()}
+          >
             마이페이지
           </Link>
           <button className={style.pop_button} onClick={() => signOut()}>
