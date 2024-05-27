@@ -1,7 +1,6 @@
 export const NAVIGATION_LIST = [
-  { label: '홈', url: '/' },
-  { label: '게임1', url: '/game1' },
-  { label: '게임2', url: '/game2' },
+  { label: '강화하기', url: '/' },
+  { label: '행운의 시바', url: '/luckyshiba' },
 ];
 
 export const COLLECTIONS = {

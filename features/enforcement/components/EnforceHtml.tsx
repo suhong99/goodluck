@@ -20,7 +20,6 @@ export default function EnforceHtml() {
   const { open } = useModalContext();
 
   const openRecords = () => {
-    console.log('열기');
     open({ type: 'enforce' });
   };
 
@@ -48,8 +47,6 @@ export default function EnforceHtml() {
       setResult(`${percent ?? 0}퍼의 확률 실패`);
       update({ percent: Number(percent), status: '실패' });
     }
-
-    //TODO: 임시 미적용 마이페이지 만들고 다시
 
     const userId = data?.user?.email;
     userId &&
