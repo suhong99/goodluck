@@ -1,7 +1,19 @@
 import { useEffect, useState } from 'react';
 
-export const useInput = () => {
-  const [input, setInput] = useState({
+type InputState = {
+  forward: boolean;
+  backward: boolean;
+  left: boolean;
+  right: boolean;
+  jump: boolean;
+};
+
+type KeyMap = {
+  [key: string]: keyof InputState;
+};
+
+export const useInput = (): InputState => {
+  const [input, setInput] = useState<InputState>({
     forward: false,
     backward: false,
     left: false,
@@ -10,7 +22,7 @@ export const useInput = () => {
   });
 
   useEffect(() => {
-    const keys = {
+    const keys: KeyMap = {
       KeyW: 'forward',
       KeyS: 'backward',
       KeyA: 'left',
@@ -18,14 +30,22 @@ export const useInput = () => {
       Space: 'jump',
     };
 
-    const findKey = (key: string) => keys[key];
+    const findKey = (key: string): keyof InputState | undefined => keys[key];
 
-    const handleKeyDown = (e) => {
-      setInput((m) => ({ ...m, [findKey(e.code)]: true }));
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      const key = findKey(e.code);
+      if (key) {
+        setInput((prevInput) => ({ ...prevInput, [key]: true }));
+      }
     };
-    const handleKeyUp = (e) => {
-      setInput((m) => ({ ...m, [findKey(e.code)]: false }));
+
+    const handleKeyUp = (e: KeyboardEvent): void => {
+      const key = findKey(e.code);
+      if (key) {
+        setInput((prevInput) => ({ ...prevInput, [key]: false }));
+      }
     };
+
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
 
