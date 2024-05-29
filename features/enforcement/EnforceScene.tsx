@@ -7,7 +7,7 @@ import { Environment, SpotLight, Stars } from '@react-three/drei';
 import { useEnforceStore } from '@/store/enforcecement';
 
 export default function EnforceScene() {
-  const sword = useLoader(GLTFLoader, '/medieval_sword.glb');
+  const sword = useLoader(GLTFLoader, '/models/medieval_sword.glb');
   const { status } = useEnforceStore();
 
   return (
