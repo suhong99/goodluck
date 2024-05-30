@@ -3,10 +3,11 @@
 import { Ground } from '@/features/luckyshiba/Ground';
 import { Shiba } from '@/features/luckyshiba/Shiba';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
+import DrawCall from '@/shared/components/3dmodel/DrawCall';
 
 import { color } from '@/shared/contants/color';
 import { Debug, Physics } from '@react-three/cannon';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, StatsGl } from '@react-three/drei';
 import { useControls } from 'leva';
 
 export default function LuckyShiba() {
@@ -30,7 +31,9 @@ export default function LuckyShiba() {
           <directionalLight position={[0, 5, 5]} />
           <Ground rotation={[-Math.PI / 2, 0, 0]} />
           <Shiba />
+          <DrawCall />
         </Debug>
+        <StatsGl />
       </Physics>
     </CanvasLayout>
   );

@@ -1,11 +1,11 @@
 'use client';
 import { Mesh, MeshBasicMaterial } from 'three';
-import React, { useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import React, { useEffect, useRef, useState } from 'react';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from './hooks/useInput';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -55,41 +55,70 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
 
   const { forward, backward, left, right } = useInput();
 
-  useFrame((state, delta) => {
-    chassisApi.position.subscribe((pos) => {
-      let [x, y, z] = pos;
-      if (forward) {
-        z += delta;
-      }
-      if (backward) {
-        z -= delta;
-      }
-      if (right) {
-        x -= delta;
-      }
-      if (left) {
-        x += delta;
-      }
-      chassisApi.position.set(x, y, z);
+  // const controlRef = useRef<typeof OrbitControls>();
+  // const camera = useThree((state) => state.camera);
+  const [chassisPosition, setChassisPosition] =
+    useState<[number, number, number]>(position);
+  const [chassisRotation, setChassisRotation] = useState<
+    [number, number, number]
+  >([0, 0, 0]);
+
+  useEffect(() => {
+    const unsubscribePosition = chassisApi.position.subscribe((pos) => {
+      setChassisPosition(pos as [number, number, number]);
     });
+
+    const unsubscribeRotation = chassisApi.rotation.subscribe((rot) => {
+      setChassisRotation(rot as [number, number, number]);
+    });
+
+    return () => {
+      unsubscribePosition();
+      unsubscribeRotation();
+    };
+  }, [chassisApi]);
+
+  useFrame((state, delta) => {
+    let [x, y, z] = chassisPosition;
+    let [rx, ry, rz] = chassisRotation;
+
+    if (forward) {
+      x += Math.sin(ry) * delta;
+      z += Math.cos(ry) * delta;
+    }
+    if (backward) {
+      x -= Math.sin(ry) * delta;
+      z -= Math.cos(ry) * delta;
+    }
+    if (right) {
+      ry -= delta;
+    }
+    if (left) {
+      ry += delta;
+    }
+
+    chassisApi.position.set(x, y, z);
+    chassisApi.rotation.set(rx, ry, rz);
   });
 
   return (
-    <group ref={chassisBody} {...props}>
-      <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh
-          geometry={nodes.Group18985_default_0.geometry}
-          material={materials['default']}
-        />
-        <mesh
-          geometry={nodes.Box002_default_0.geometry}
-          material={materials['default']}
-        />
-        <mesh
-          geometry={nodes.Object001_default_0.geometry}
-          material={materials['default']}
-        />
+    <>
+      <group ref={chassisBody} {...props}>
+        <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh
+            geometry={nodes.Group18985_default_0.geometry}
+            material={materials['default']}
+          />
+          <mesh
+            geometry={nodes.Box002_default_0.geometry}
+            material={materials['default']}
+          />
+          <mesh
+            geometry={nodes.Object001_default_0.geometry}
+            material={materials['default']}
+          />
+        </group>
       </group>
-    </group>
+    </>
   );
 }
