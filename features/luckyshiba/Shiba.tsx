@@ -91,10 +91,15 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
       z -= Math.cos(ry) * delta;
     }
     if (right) {
-      ry -= delta;
+      rx >= 0 ? (ry -= delta) : (ry += delta);
     }
     if (left) {
-      ry += delta;
+      rx >= 0 ? (ry += delta) : (ry -= delta);
+    }
+    if (ry > Math.PI * 2) {
+      ry -= Math.PI * 2;
+    } else if (ry < 0) {
+      ry += Math.PI * 2;
     }
 
     chassisApi.position.set(x, y, z);
