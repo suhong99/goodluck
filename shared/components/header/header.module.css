@@ -22,9 +22,18 @@
   font-size: 0.8rem;
 }
 
+.left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
 .navigation {
   display: flex;
   flex-direction: row;
+  align-items: end;
+  padding-bottom: 8px;
   gap: 1rem;
 }
 
@@ -65,4 +74,14 @@
 
 .pop_button:hover {
   color: rgb(191, 198, 136);
+}
+
+.active {
+  color: black;
+  font-size: large;
+  font-weight: 700;
+}
+
+.inactive {
+  color: gray;
 }

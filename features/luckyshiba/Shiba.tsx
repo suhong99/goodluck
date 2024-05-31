@@ -5,7 +5,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from './hooks/useInput';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
