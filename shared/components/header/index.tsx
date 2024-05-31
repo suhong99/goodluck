@@ -7,8 +7,10 @@ import HomeIcon from './HomeIcon';
 export default function Header() {
   return (
     <header className={styles.header}>
-      <HomeIcon />
-      <NavLinks />
+      <div className={styles.left}>
+        <HomeIcon />
+        <NavLinks />
+      </div>
       <AuthButton />
     </header>
   );
