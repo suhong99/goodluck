@@ -1,12 +1,12 @@
 'use client';
-import { Mesh, MeshBasicMaterial } from 'three';
-import React, { useEffect, useRef, useState } from 'react';
+import { Mesh, MeshBasicMaterial, Vector3 } from 'three';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from './hooks/useInput';
 import { useFrame } from '@react-three/fiber';
-
+import { useFollowCam } from '@/shared/hooks/useFollowCam';
 type GLTFResult = GLTF & {
   nodes: {
     Group18985_default_0: Mesh;
@@ -27,6 +27,9 @@ useGLTF.preload('/models/shiba.glb');
 
 export function Shiba(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
+  const { pivot } = useFollowCam();
+  const worldPosition = useMemo(() => new Vector3(), []);
+  const worldDirection = useMemo(() => new Vector3(), []);
 
   const position: [x: number, y: number, z: number] = [0, 1, 0];
   const width = 0.65;
@@ -52,6 +55,12 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
     }),
     useRef(null)
   );
+
+  const makeFollowCam = () => {
+    chassisBody?.current!.getWorldPosition(worldPosition);
+    chassisBody?.current!.getWorldDirection(worldDirection);
+    pivot.position.lerp(worldPosition, 0.9);
+  };
 
   const { forward, backward, left, right } = useInput();
 
@@ -79,6 +88,8 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   }, [chassisApi]);
 
   useFrame((state, delta) => {
+    makeFollowCam();
+
     let [x, y, z] = chassisPosition;
     let [rx, ry, rz] = chassisRotation;
 
@@ -91,15 +102,10 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
       z -= Math.cos(ry) * delta;
     }
     if (right) {
-      rx >= 0 ? (ry -= delta) : (ry += delta);
+      ry -= delta;
     }
     if (left) {
-      rx >= 0 ? (ry += delta) : (ry -= delta);
-    }
-    if (ry > Math.PI * 2) {
-      ry -= Math.PI * 2;
-    } else if (ry < 0) {
-      ry += Math.PI * 2;
+      ry += delta;
     }
 
     chassisApi.position.set(x, y, z);
