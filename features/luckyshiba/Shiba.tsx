@@ -1,5 +1,5 @@
 'use client';
-import { Mesh, MeshBasicMaterial, Vector3 } from 'three';
+import { Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -30,6 +30,7 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
+  const worldQuaternion = useMemo(() => new Quaternion(), []);
 
   const position: [x: number, y: number, z: number] = [0, 1, 0];
   const width = 0.65;
@@ -90,26 +91,42 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   useFrame((state, delta) => {
     makeFollowCam();
 
-    let [x, y, z] = chassisPosition;
-    let [rx, ry, rz] = chassisRotation;
+    if (forward || backward) {
+      const speed = delta * 2;
+      let { x, y, z } = worldPosition;
+      let { x: rx, y: ry, z: rz } = worldDirection;
 
-    if (forward) {
-      x += Math.sin(ry) * delta;
-      z += Math.cos(ry) * delta;
-    }
-    if (backward) {
-      x -= Math.sin(ry) * delta;
-      z -= Math.cos(ry) * delta;
-    }
-    if (right) {
-      ry -= delta;
-    }
-    if (left) {
-      ry += delta;
+      let [newX, newY, newZ] = [x, y, z];
+
+      if (forward) {
+        newX += rx * speed;
+        newZ += rz * speed;
+      }
+      if (backward) {
+        newX -= rx * speed;
+        newZ -= rz * speed;
+      }
+      chassisApi.position.set(newX, newY, newZ);
     }
 
-    chassisApi.position.set(x, y, z);
-    chassisApi.rotation.set(rx, ry, rz);
+    if (right || left) {
+      const turnAngle = delta;
+      const turnQuaternion = new Quaternion();
+
+      if (right) {
+        turnQuaternion.setFromAxisAngle(new Vector3(0, 1, 0), -turnAngle);
+      }
+      if (left) {
+        turnQuaternion.setFromAxisAngle(new Vector3(0, 1, 0), turnAngle);
+      }
+      worldQuaternion.multiplyQuaternions(turnQuaternion, worldQuaternion);
+      chassisApi.quaternion.set(
+        worldQuaternion.x,
+        worldQuaternion.y,
+        worldQuaternion.z,
+        worldQuaternion.w
+      );
+    }
   });
 
   return (
