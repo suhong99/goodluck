@@ -1,7 +1,7 @@
 'use client';
 import { Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from './hooks/useInput';
@@ -57,40 +57,15 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
     useRef(null)
   );
 
+  const { forward, backward, left, right } = useInput();
+
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
     pivot.position.lerp(worldPosition, 0.9);
   };
 
-  const { forward, backward, left, right } = useInput();
-
-  // const controlRef = useRef<typeof OrbitControls>();
-  // const camera = useThree((state) => state.camera);
-  const [chassisPosition, setChassisPosition] =
-    useState<[number, number, number]>(position);
-  const [chassisRotation, setChassisRotation] = useState<
-    [number, number, number]
-  >([0, 0, 0]);
-
-  useEffect(() => {
-    const unsubscribePosition = chassisApi.position.subscribe((pos) => {
-      setChassisPosition(pos as [number, number, number]);
-    });
-
-    const unsubscribeRotation = chassisApi.rotation.subscribe((rot) => {
-      setChassisRotation(rot as [number, number, number]);
-    });
-
-    return () => {
-      unsubscribePosition();
-      unsubscribeRotation();
-    };
-  }, [chassisApi]);
-
-  useFrame((state, delta) => {
-    makeFollowCam();
-
+  const controlMovement = (delta: number) => {
     if (forward || backward) {
       const speed = delta * 2;
       let { x, y, z } = worldPosition;
@@ -127,6 +102,11 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
         worldQuaternion.w
       );
     }
+  };
+
+  useFrame((_, delta) => {
+    makeFollowCam();
+    controlMovement(delta);
   });
 
   return (
