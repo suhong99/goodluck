@@ -1,7 +1,8 @@
 'use client';
 
 import { Ground } from '@/features/luckyshiba/Ground';
-import { Shiba } from '@/features/luckyshiba/Shiba';
+import { Shiba } from '@/features/luckyshiba/components/Shiba';
+import { Background } from '@/features/luckyshiba/components/background';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import DrawCall from '@/shared/components/3dmodel/DrawCall';
 
@@ -19,18 +20,19 @@ export default function LuckyShiba() {
 
   return (
     <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
-      <OrbitControls
+      {/* <OrbitControls
         makeDefault
         enablePan={false}
         minDistance={2}
-        maxDistance={15}
-      />
+        maxDistance={20}
+      /> */}
       <Physics gravity={[gravity.x, gravity.y, gravity.z]}>
         <Debug>
           <ambientLight />
           <directionalLight position={[0, 5, 5]} />
           <Ground rotation={[-Math.PI / 2, 0, 0]} />
           <Shiba />
+          <Background position={[0, 0, 0]} />
           <DrawCall />
         </Debug>
         <StatsGl />
