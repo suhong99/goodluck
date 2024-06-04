@@ -1,5 +1,5 @@
 import { SHIBA_MATERIALS, SHIBA_NODES } from '@/shared/contants/model';
-import { useCompoundBody } from '@react-three/cannon';
+import { useCompoundBody, useTrimesh } from '@react-three/cannon';
 import { useRef } from 'react';
 
 export default function House({
@@ -26,14 +26,44 @@ export default function House({
           args: [1.9, 2.5, 5],
           position: [-4, 0, -9.5],
           type: 'Box',
-          color: 'red',
         },
         {
           // 좌측후면 입구
           args: [1.9, 2.5, 3],
           position: [-4, 0, 9.5],
           type: 'Box',
-          color: 'red',
+        },
+        {
+          //수레바퀴
+          args: [3.1, 3.1, 2, 16],
+          position: [-4.2, 2, 4.3],
+          rotation: [0, 0, Math.PI / 2],
+          type: 'Cylinder',
+        },
+        {
+          //집기둥
+          args: [5, 10, 10],
+          position: [-9, 2, 0],
+          type: 'Box',
+        },
+        {
+          //왼쪽 계단1
+          args: [4.9, 1, 2],
+          position: [-11.3, 2.1, 9.7],
+          rotation: [0, 0, -Math.PI / 5.5],
+          type: 'Box',
+        },
+        {
+          args: [2, 4, 2],
+          position: [-14.1, 1.9, 9.7],
+          type: 'Box',
+        },
+        {
+          //왼쪽 계단3
+          args: [6, 1, 2],
+          position: [-14.1, 4.5, 7],
+          rotation: [0, -Math.PI / 2, -Math.PI / 5.5],
+          type: 'Box',
         },
       ],
     }),
@@ -68,6 +98,7 @@ export default function House({
           rotation={[0, 0, -Math.PI / 2]}
           scale={100}
         />
+
         <mesh
           //  지붕
           geometry={nodes.characters004_house_0.geometry}

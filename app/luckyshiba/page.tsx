@@ -14,18 +14,18 @@ import { useControls } from 'leva';
 export default function LuckyShiba() {
   const gravity = useControls('Gravity', {
     x: { value: 0, min: -10, max: 10, step: 0.1 },
-    y: { value: 0, min: -10, max: 10, step: 0.1 },
+    y: { value: -9.8, min: -10, max: 10, step: 0.1 },
     z: { value: 0, min: -10, max: 10, step: 0.1 },
   });
 
   return (
     <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
-      {/* <OrbitControls
+      <OrbitControls
         makeDefault
         enablePan={false}
         minDistance={2}
-        maxDistance={20}
-      /> */}
+        maxDistance={30}
+      />
       <Physics gravity={[gravity.x, gravity.y, gravity.z]}>
         <Debug>
           <ambientLight />
