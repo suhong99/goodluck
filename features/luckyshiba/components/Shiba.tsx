@@ -7,7 +7,7 @@ import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from '../hooks/useInput';
 import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
-import { Group } from 'three/examples/jsm/libs/tween.module.js';
+import { any } from 'three/examples/jsm/nodes/Nodes.js';
 type GLTFResult = GLTF & {
   nodes: {
     Group18985_default_0: Mesh;
@@ -53,6 +53,11 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
           position: [0, 0, 0],
           type: 'Box',
         },
+        // {
+        //   args: [0.3],
+        //   position: [0, 0, 0],
+        //   type: 'Sphere',
+        // },
       ],
     }),
     useRef(null)
@@ -63,7 +68,7 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
-    pivot.position.lerp(worldPosition, 0.9);
+    // pivot.position.lerp(worldPosition, 0.9);
   };
 
   const controlMovement = (delta: number) => {
@@ -86,12 +91,11 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
     }
 
     if (jump) {
-      let { x, y, z } = worldPosition;
       chassisApi.velocity.set(0, 4, 0);
     }
 
     if (right || left) {
-      const turnAngle = delta;
+      const turnAngle = 2 * delta;
       const turnQuaternion = new Quaternion();
 
       if (right) {
