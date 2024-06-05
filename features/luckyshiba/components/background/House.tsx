@@ -42,27 +42,33 @@ export default function House({
         },
         {
           //집기둥
-          args: [5, 10, 10],
-          position: [-9, 2, 0],
+          args: [5, 9.6, 9.5],
+          position: [-9, 2, 0.5],
           type: 'Box',
         },
         {
           //왼쪽 계단1
-          args: [4.9, 1, 2],
-          position: [-11.3, 2.1, 9.7],
+          args: [4.9, 1, 1.8],
+          position: [-11.3, 2.1, 9.8],
           rotation: [0, 0, -Math.PI / 5.5],
           type: 'Box',
         },
         {
-          args: [2, 4, 2],
+          args: [2, 3.9, 2],
           position: [-14.1, 1.9, 9.7],
           type: 'Box',
         },
         {
           //왼쪽 계단3
-          args: [6, 1, 2],
-          position: [-14.1, 4.5, 7],
-          rotation: [0, -Math.PI / 2, -Math.PI / 5.5],
+          args: [6.1, 1, 2],
+          position: [-14.1, 4.6, 7],
+          rotation: [0, -Math.PI / 2, -Math.PI / 5],
+          type: 'Box',
+        },
+        {
+          //2층
+          args: [3.5, 1.8, 9],
+          position: [-13.2, 5.9, 0.3],
           type: 'Box',
         },
       ],
