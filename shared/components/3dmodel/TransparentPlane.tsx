@@ -7,13 +7,13 @@ import { Mesh } from 'three';
 type Props = {
   rotation: Triplet;
   receivceShadow?: boolean;
-  position?: Triplet;
+  position: Triplet;
 };
 
 export function TransparentPlane({
   rotation,
   receivceShadow = false,
-  position = [0, 0, 0],
+  position,
 }: Props) {
   const [meshRef] = usePlane(
     () => ({

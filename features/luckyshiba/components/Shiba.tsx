@@ -121,8 +121,12 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
 
   return (
     <>
-      <group ref={chassisBody} {...props}>
-        <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
+      <group ref={chassisBody} position={[0, 0, +20]} {...props}>
+        <group
+          position={[0, 0.35, 0.5]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          castShadow
+        >
           <mesh
             geometry={nodes.Group18985_default_0.geometry}
             material={materials['default']}
