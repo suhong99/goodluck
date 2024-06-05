@@ -1,8 +1,8 @@
 'use client';
 
-import { Ground } from '@/features/luckyshiba/Ground';
 import { Shiba } from '@/features/luckyshiba/components/Shiba';
 import { Background } from '@/features/luckyshiba/components/background';
+import Walls from '@/features/luckyshiba/components/background/Walls';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import DrawCall from '@/shared/components/3dmodel/DrawCall';
 
@@ -30,12 +30,12 @@ export default function LuckyShiba() {
         <Debug>
           <ambientLight />
           <directionalLight position={[0, 5, 5]} />
-          <Ground rotation={[-Math.PI / 2, 0, 0]} />
           <Shiba />
+          <Walls />
           <Background position={[0, 0, 0]} />
           <DrawCall />
+          <StatsGl />
         </Debug>
-        <StatsGl />
       </Physics>
     </CanvasLayout>
   );

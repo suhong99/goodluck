@@ -7,7 +7,7 @@ import { useCompoundBody } from '@react-three/cannon';
 import { useInput } from '../hooks/useInput';
 import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
-import { any } from 'three/examples/jsm/nodes/Nodes.js';
+import * as Three from 'three';
 type GLTFResult = GLTF & {
   nodes: {
     Group18985_default_0: Mesh;
@@ -60,7 +60,7 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
         // },
       ],
     }),
-    useRef(null)
+    useRef<Three.Group>(null)
   );
 
   const { forward, backward, left, right, jump } = useInput();
@@ -121,8 +121,12 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
 
   return (
     <>
-      <group ref={chassisBody} {...props}>
-        <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
+      <group ref={chassisBody} position={[0, 0, +20]} {...props}>
+        <group
+          position={[0, 0.35, 0.5]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          castShadow
+        >
           <mesh
             geometry={nodes.Group18985_default_0.geometry}
             material={materials['default']}
