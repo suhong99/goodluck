@@ -10,12 +10,14 @@ Title: Baker and the Bridge
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { SHIBA_MATERIALS, SHIBA_NODES } from '@/shared/contants/model';
 import House from './House';
+import Bridge from './Bridge';
+import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
+import Hill from './Hill';
 
 type GLTFResult = GLTF & {
-  nodes: SHIBA_NODES;
-  materials: SHIBA_MATERIALS;
+  nodes: SHIBA_BG_NODES;
+  materials: SHIBA_BG_MATERIALS;
 };
 
 type ContextType = Record<
@@ -33,57 +35,12 @@ export function Background(props: JSX.IntrinsicElements['group']) {
       <group rotation={[Math.PI / 2, 0, -Math.PI]}>
         <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
           <House nodes={nodes} materials={materials} />
-          {/* 다리 */}
-          <mesh
-            geometry={nodes.characters005_bridge_0.geometry}
-            material={materials.bridge}
-            rotation={[0, 0, -Math.PI / 2]}
-            scale={100}
-          />
-          {/* 반대 다리와 나무 */}
-          <mesh
-            geometry={nodes.characters006_tree_0.geometry}
-            material={materials.tree}
-            rotation={[0, 0, -Math.PI / 2]}
-            scale={100}
-          />
-          <group rotation={[0, 0, -Math.PI / 2]} scale={100}>
-            <mesh
-              geometry={nodes.characters007_bush_0.geometry}
-              material={materials.bush}
-            />
-            <mesh
-              geometry={nodes.characters007_bush_0_1.geometry}
-              material={materials.bush}
-            />
-          </group>
-          <mesh
-            geometry={nodes.characters001_charcters_0.geometry}
-            material={materials.charcters}
-            rotation={[0, 0, -Math.PI / 2]}
-            scale={100}
-          />
-
-          <mesh
-            // 우측 오르막길
-            geometry={nodes.characters009_terrain_right_0.geometry}
-            material={materials.terrain_right}
-            rotation={[0, 0, -Math.PI / 2]}
-            scale={100}
-          />
-
+          <Bridge nodes={nodes} materials={materials} />
+          <Hill nodes={nodes} materials={materials} />
           <mesh
             // 강물
             geometry={nodes.characters008_water_0.geometry}
             material={materials.water}
-            rotation={[0, 0, -Math.PI / 2]}
-            scale={100}
-          />
-
-          <mesh
-            // 우측 풀
-            geometry={nodes.characters010_wheat_0.geometry}
-            material={materials.wheat}
             rotation={[0, 0, -Math.PI / 2]}
             scale={100}
           />

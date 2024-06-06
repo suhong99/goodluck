@@ -2,6 +2,7 @@
 
 import { Shiba } from '@/features/luckyshiba/components/Shiba';
 import { Background } from '@/features/luckyshiba/components/background';
+import Hill from '@/features/luckyshiba/components/background/Hill';
 import Walls from '@/features/luckyshiba/components/background/Walls';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import DrawCall from '@/shared/components/3dmodel/DrawCall';
