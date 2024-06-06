@@ -1,4 +1,4 @@
-import { SHIBA_MATERIALS, SHIBA_NODES } from '@/shared/contants/model';
+import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
 import { useCompoundBody, useTrimesh } from '@react-three/cannon';
 import { useRef } from 'react';
 
@@ -6,8 +6,8 @@ export default function House({
   nodes,
   materials,
 }: {
-  nodes: SHIBA_NODES;
-  materials: SHIBA_MATERIALS;
+  nodes: SHIBA_BG_NODES;
+  materials: SHIBA_BG_MATERIALS;
 }) {
   const [houseBody, _] = useCompoundBody(
     () => ({

@@ -1,0 +1,103 @@
+import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
+import {
+  ConvexPolyhedronProps,
+  Triplet,
+  useCompoundBody,
+  useConvexPolyhedron,
+} from '@react-three/cannon';
+import { useRef } from 'react';
+import { Vector3 } from 'three';
+
+export default function Hill({
+  nodes,
+  materials,
+}: {
+  nodes: SHIBA_BG_NODES;
+  materials: SHIBA_BG_MATERIALS;
+}) {
+  // 다면체의 faces (면)
+
+  const width = 2;
+  const length = 8.5;
+  const vertices: Triplet[] = [
+    [1, 0, width],
+    [1, 0, -width],
+    [-1, 0, width],
+    [-1, 0, -width],
+    [-length, -2, width],
+    [-length, -2, -width],
+    [length, -2, width],
+    [length, -2, -width],
+    [-length, -4.5, width],
+    [-length, -4.5, -width],
+    [length, -4.5, width], //10
+    [length, -4.5, -width], //11
+    [1.5, -2, width],
+    [1.5, -2, -width],
+    [-1.5, -2, width],
+    [-1.5, -2, -width],
+  ];
+
+  const faces = [
+    [0, 1, 2, 3],
+    [2, 3, 4, 5],
+    [0, 1, 6, 7],
+    [4, 5, 8, 9],
+    [6, 7, 10, 11],
+    [10, 11, 12, 13],
+    [8, 9, 14, 15],
+    [12, 13, 14, 15],
+  ];
+
+  const [hillBody, _] = useCompoundBody(
+    () => ({
+      mass: 0,
+      rotation: [0, 0, 0],
+      collisionFilterGroup: 3,
+      shapes: [
+        {
+          type: 'ConvexPolyhedron',
+          args: [vertices, faces],
+          position: [0.5, 8.7, -2],
+        },
+      ],
+    }),
+    useRef(null)
+  );
+
+  return (
+    <>
+      <group rotation={[0, 0, -Math.PI / 2]} scale={100}>
+        <mesh
+          geometry={nodes.characters007_bush_0.geometry}
+          material={materials.bush}
+        />
+        <mesh
+          geometry={nodes.characters007_bush_0_1.geometry}
+          material={materials.bush}
+        />
+      </group>
+      <mesh
+        geometry={nodes.characters001_charcters_0.geometry}
+        material={materials.charcters}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={100}
+      />
+      <mesh
+        // 우측 오르막길
+        geometry={nodes.characters009_terrain_right_0.geometry}
+        material={materials.terrain_right}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={100}
+      />
+
+      <mesh
+        // 우측 풀
+        geometry={nodes.characters010_wheat_0.geometry}
+        material={materials.wheat}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={100}
+      />
+    </>
+  );
+}

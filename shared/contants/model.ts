@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-type SHIBA_NODES = {
+type SHIBA_BG_NODES = {
   characters_STONE_a_0: THREE.Mesh;
   characters_STONE_a_0_1: THREE.Mesh;
   characters001_charcters_0: THREE.Mesh;
@@ -16,7 +16,7 @@ type SHIBA_NODES = {
   characters010_wheat_0: THREE.Mesh;
 };
 
-type SHIBA_MATERIALS = {
+type SHIBA_BG_MATERIALS = {
   STONE_a: THREE.MeshBasicMaterial;
   charcters: THREE.MeshBasicMaterial;
   watermill: THREE.MeshBasicMaterial;
@@ -30,4 +30,4 @@ type SHIBA_MATERIALS = {
   wheat: THREE.MeshBasicMaterial;
 };
 
-export type { SHIBA_MATERIALS, SHIBA_NODES };
+export type { SHIBA_BG_MATERIALS, SHIBA_BG_NODES };
