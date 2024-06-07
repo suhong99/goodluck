@@ -37,7 +37,7 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   const width = 0.65;
   const height = 1.2;
   const front = 0.6;
-  const mass = 50;
+  const mass = 500;
 
   const chassisBodyArgs = [width, height, front * 2];
 

@@ -33,7 +33,7 @@ export default function LuckyShiba() {
           <directionalLight position={[0, 5, 5]} />
           <Shiba />
           <Walls />
-          <Background position={[0, 0, 0]} />
+          <Background />
           <DrawCall />
           <StatsGl />
         </Debug>
