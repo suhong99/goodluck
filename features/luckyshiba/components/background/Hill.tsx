@@ -1,6 +1,7 @@
 import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
 import { Triplet, useCompoundBody } from '@react-three/cannon';
 import { useRef } from 'react';
+import { HILL_SHAPE } from './contants/collision';
 
 export default function Hill({
   nodes,
@@ -15,7 +16,7 @@ export default function Hill({
       rotation: [0, 0, 0],
       collisionFilterGroup: 3,
       type: 'Static',
-      shapes: [],
+      shapes: HILL_SHAPE,
     }),
     useRef(null)
   );

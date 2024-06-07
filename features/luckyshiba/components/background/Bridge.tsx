@@ -8,25 +8,25 @@ export default function Bridge({
   nodes: SHIBA_BG_NODES;
   materials: SHIBA_BG_MATERIALS;
 }) {
-  const width = 2;
-  const length = 8.5;
+  const width = 4;
+  const length = 17;
   const vertices: Triplet[] = [
-    [1, 0, width],
-    [1, 0, -width],
-    [-1, 0, width],
-    [-1, 0, -width],
-    [-length, -2, width],
-    [-length, -2, -width],
-    [length, -2, width],
-    [length, -2, -width],
-    [-length, -4.5, width],
-    [-length, -4.5, -width],
-    [length, -4.5, width], //10
-    [length, -4.5, -width], //11
-    [1.5, -2, width],
-    [1.5, -2, -width],
-    [-1.5, -2, width],
-    [-1.5, -2, -width],
+    [9.5, 4.5, width],
+    [9.5, 4.5, 0],
+    [7, 4.5, width],
+    [7, 4.5, 0],
+    [0, 2.5, width],
+    [0, 2.5, 0],
+    [length, 2.5, width],
+    [length, 2.5, 0],
+    [0, 0, width],
+    [0, 0, 0],
+    [length, 0, width], //10
+    [length, 0, 0], //11
+    [10, 2.5, width],
+    [10, 2.5, 0],
+    [7, 2.5, width],
+    [7, 2.5, 0],
   ];
 
   const faces = [
@@ -46,14 +46,56 @@ export default function Bridge({
     [1, 7, 13, 11],
   ];
 
-  // const [body, _] = useConvexPolyhedron(() => ({
-  //   mass: 100,
-  //   rotation: [0, 0, 0],
-  //   collisionFilterGroup: 3,
-  //   position: [0.5, 8.7, -2],
-  //   type: 'Static',
-  //   args: [vertices, faces],
-  // }));
+  const normals: Triplet[] = [
+    [0, 1, 0],
+    [-0.27472112789737807, 0.9615239476408232, 0],
+    [-0.25766265056033233, -0.9662349396012463, -0],
+    [-1, -0, -0],
+    [-1, -0, -0],
+    [0.3363363969981562, 0.9417419115948374, 0],
+    [0.3363363969981562, -0.9417419115948374, 0],
+    [0, 1, 0],
+    [-0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, -1],
+  ];
+
+  // function calculateNormal(v0, v1, v2) {
+  //   const vector1 = [v1[0] - v0[0], v1[1] - v0[1], v1[2] - v0[2]];
+
+  //   const vector2 = [v2[0] - v0[0], v2[1] - v0[1], v2[2] - v0[2]];
+
+  //   const normal = [
+  //     vector1[1] * vector2[2] - vector1[2] * vector2[1],
+  //     vector1[2] * vector2[0] - vector1[0] * vector2[2],
+  //     vector1[0] * vector2[1] - vector1[1] * vector2[0],
+  //   ];
+
+  //   const length = Math.sqrt(
+  //     normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]
+  //   );
+
+  //   return [normal[0] / length, normal[1] / length, normal[2] / length];
+  // }
+
+  // const normals = faces.map((face) => {
+  //   const [v0, v1, v2] = face.map((index) => vertices[index]);
+  //   return calculateNormal(v0, v1, v2);
+  // });
+
+  // console.log(normals, 'normals');
+
+  const [body, _] = useConvexPolyhedron(() => ({
+    mass: 100,
+    rotation: [0, 0, 0],
+    collisionFilterGroup: 3,
+    position: [0.5, 8.7, -2],
+    type: 'Static',
+    args: [vertices, faces, normals],
+  }));
 
   return (
     <group>
