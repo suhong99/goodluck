@@ -14,6 +14,7 @@ export default function House({
       mass: 0,
       rotation: [0, 0, 0],
       collisionFilterGroup: 3,
+      type: 'Static',
       shapes: [
         {
           // 집바닥

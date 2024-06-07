@@ -31,7 +31,7 @@ export function Background(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/background.glb') as GLTFResult;
 
   return (
-    <group {...props} dispose={null}>
+    <group>
       <group rotation={[Math.PI / 2, 0, -Math.PI]}>
         <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
           <House nodes={nodes} materials={materials} />
