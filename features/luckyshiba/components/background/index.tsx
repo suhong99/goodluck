@@ -25,9 +25,7 @@ type ContextType = Record<
   React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
 >;
 
-useGLTF.preload('/models/background.glb');
-
-export function Background(props: JSX.IntrinsicElements['group']) {
+export function Background() {
   const { nodes, materials } = useGLTF('/models/background.glb') as GLTFResult;
 
   return (
@@ -38,7 +36,6 @@ export function Background(props: JSX.IntrinsicElements['group']) {
           <Bridge nodes={nodes} materials={materials} />
           <Hill nodes={nodes} materials={materials} />
           <mesh
-            // 강물
             geometry={nodes.characters008_water_0.geometry}
             material={materials.water}
             rotation={[0, 0, -Math.PI / 2]}
@@ -49,3 +46,5 @@ export function Background(props: JSX.IntrinsicElements['group']) {
     </group>
   );
 }
+
+useGLTF.preload('/models/background.glb');

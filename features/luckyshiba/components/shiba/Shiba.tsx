@@ -1,13 +1,13 @@
 'use client';
-import { Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
-import React, { useMemo, useRef } from 'react';
+import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { useCompoundBody } from '@react-three/cannon';
-import { useInput } from '../hooks/useInput';
+import { useCompoundBody, useRaycastVehicle } from '@react-three/cannon';
+import { useInput } from '../../hooks/useInput';
 import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
-import * as Three from 'three';
+import { useWheels } from '../../hooks/useWheels';
 type GLTFResult = GLTF & {
   nodes: {
     Group18985_default_0: Mesh;
@@ -26,7 +26,7 @@ type ContextType = Record<
 
 useGLTF.preload('/models/shiba.glb');
 
-export function Shiba(props: JSX.IntrinsicElements['group']) {
+export function Shiba() {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
   const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
@@ -37,7 +37,7 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
   const width = 0.65;
   const height = 1.2;
   const front = 0.6;
-  const mass = 500;
+  const mass = 200;
 
   const chassisBodyArgs = [width, height, front * 2];
 
@@ -53,80 +53,73 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
           position: [0, 0, 0],
           type: 'Box',
         },
-        // {
-        //   args: [0.3],
-        //   position: [0, 0, 0],
-        //   type: 'Sphere',
-        // },
       ],
     }),
-    useRef<Three.Group>(null)
+    useRef<Group>(null)
   );
 
   const { forward, backward, left, right, jump } = useInput();
+
+  const [wheels, wheelInfos] = useWheels({ width, height, front });
+
+  const [vehicle, vehicleApi] = useRaycastVehicle(
+    () => ({
+      chassisBody,
+      wheelInfos,
+      wheels,
+    }),
+    useRef<Group>(null)
+  );
 
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
     // pivot.position.lerp(worldPosition, 0.9);
   };
+  const engineForce = 100000;
 
-  const controlMovement = (delta: number) => {
-    if (forward || backward) {
-      const speed = delta * 4;
-      let { x, y, z } = worldPosition;
-      let { x: rx, y: ry, z: rz } = worldDirection;
+  useEffect(() => {
+    if (forward) {
+      vehicleApi.applyEngineForce(engineForce, 2);
+      vehicleApi.applyEngineForce(engineForce, 3);
+    } else if (backward) {
+      vehicleApi.applyEngineForce(-engineForce, 2);
+      vehicleApi.applyEngineForce(-engineForce, 3);
+    } else {
+      vehicleApi.applyEngineForce(0, 2);
+      vehicleApi.applyEngineForce(0, 3);
+      // chassisApi.velocity.set(0,0,0)
+    }
 
-      let [newX, newY, newZ] = [x, y, z];
-
-      if (forward) {
-        newX += rx * speed;
-        newZ += rz * speed;
+    if (left) {
+      vehicleApi.setSteeringValue(0.35, 2);
+      vehicleApi.setSteeringValue(0.35, 3);
+      vehicleApi.setSteeringValue(-0.1, 0);
+      vehicleApi.setSteeringValue(-0.1, 1);
+    } else if (right) {
+      vehicleApi.setSteeringValue(-0.35, 2);
+      vehicleApi.setSteeringValue(-0.35, 3);
+      vehicleApi.setSteeringValue(0.1, 0);
+      vehicleApi.setSteeringValue(0.1, 1);
+    } else {
+      for (let i = 0; i < 4; i++) {
+        vehicleApi.setSteeringValue(0, i);
       }
-      if (backward) {
-        newX -= rx * speed;
-        newZ -= rz * speed;
-      }
-      chassisApi.position.set(newX, newY, newZ);
     }
 
     if (jump) {
       chassisApi.velocity.set(0, 4, 0);
     }
-
-    if (right || left) {
-      const turnAngle = 2 * delta;
-      const turnQuaternion = new Quaternion();
-
-      if (right) {
-        turnQuaternion.setFromAxisAngle(new Vector3(0, 1, 0), -turnAngle);
-      }
-      if (left) {
-        turnQuaternion.setFromAxisAngle(new Vector3(0, 1, 0), turnAngle);
-      }
-      worldQuaternion.multiplyQuaternions(turnQuaternion, worldQuaternion);
-      chassisApi.quaternion.set(
-        worldQuaternion.x,
-        worldQuaternion.y,
-        worldQuaternion.z,
-        worldQuaternion.w
-      );
-    }
-  };
+  }, [backward, chassisApi.velocity, forward, jump, left, right, vehicleApi]);
 
   useFrame((_, delta) => {
     makeFollowCam();
-    controlMovement(delta);
   });
 
   return (
-    <>
-      <group ref={chassisBody} position={[0, 0, +20]} {...props}>
-        <group
-          position={[0, 0.35, 0.5]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          castShadow
-        >
+    <group ref={vehicle}>
+      <group ref={chassisBody} position={[0, 0.5, 20]} castShadow>
+        <group position={[0, 0.35, -0.5]} rotation={[-Math.PI / 2, 0, Math.PI]}>
           <mesh
             geometry={nodes.Group18985_default_0.geometry}
             material={materials['default']}
@@ -141,6 +134,6 @@ export function Shiba(props: JSX.IntrinsicElements['group']) {
           />
         </group>
       </group>
-    </>
+    </group>
   );
 }
