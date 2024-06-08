@@ -30,7 +30,7 @@ export default function Bridge({
   ];
 
   const faces = [
-    [0, 1, 2, 3],
+    [0, 1, 2],
     [2, 3, 4, 5],
     [0, 1, 6, 7],
     [4, 5, 8, 9],
@@ -63,36 +63,12 @@ export default function Bridge({
     [0, 0, -1],
   ];
 
-  // function calculateNormal(v0, v1, v2) {
-  //   const vector1 = [v1[0] - v0[0], v1[1] - v0[1], v1[2] - v0[2]];
-
-  //   const vector2 = [v2[0] - v0[0], v2[1] - v0[1], v2[2] - v0[2]];
-
-  //   const normal = [
-  //     vector1[1] * vector2[2] - vector1[2] * vector2[1],
-  //     vector1[2] * vector2[0] - vector1[0] * vector2[2],
-  //     vector1[0] * vector2[1] - vector1[1] * vector2[0],
-  //   ];
-
-  //   const length = Math.sqrt(
-  //     normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]
-  //   );
-
-  //   return [normal[0] / length, normal[1] / length, normal[2] / length];
-  // }
-
-  // const normals = faces.map((face) => {
-  //   const [v0, v1, v2] = face.map((index) => vertices[index]);
-  //   return calculateNormal(v0, v1, v2);
-  // });
-
-  // console.log(normals, 'normals');
-
-  const [body, _] = useConvexPolyhedron(() => ({
+  const [body] = useConvexPolyhedron(() => ({
     mass: 100,
     rotation: [0, 0, 0],
-    collisionFilterGroup: 3,
-    position: [0.5, 8.7, -2],
+    // position: [0.5, 8.7, -2],
+    position: [-7.5, 4, -4.1],
+
     type: 'Static',
     args: [vertices, faces, normals],
   }));
@@ -116,3 +92,28 @@ export default function Bridge({
     </group>
   );
 }
+
+// function calculateNormal(v0, v1, v2) {
+//   const vector1 = [v1[0] - v0[0], v1[1] - v0[1], v1[2] - v0[2]];
+
+//   const vector2 = [v2[0] - v0[0], v2[1] - v0[1], v2[2] - v0[2]];
+
+//   const normal = [
+//     vector1[1] * vector2[2] - vector1[2] * vector2[1],
+//     vector1[2] * vector2[0] - vector1[0] * vector2[2],
+//     vector1[0] * vector2[1] - vector1[1] * vector2[0],
+//   ];
+
+//   const length = Math.sqrt(
+//     normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]
+//   );
+
+//   return [normal[0] / length, normal[1] / length, normal[2] / length];
+// }
+
+// const normals = faces.map((face) => {
+//   const [v0, v1, v2] = face.map((index) => vertices[index]);
+//   return calculateNormal(v0, v1, v2);
+// });
+
+// console.log(normals, 'normals');
