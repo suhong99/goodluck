@@ -106,7 +106,11 @@ export function Shiba() {
         vehicleApi.setSteeringValue(0, i);
       }
     }
-  }, [backward, forward, left, right, vehicleApi]);
+
+    if (jump) {
+      chassisApi.velocity.set(0, 4, 0);
+    }
+  }, [backward, chassisApi.velocity, forward, jump, left, right, vehicleApi]);
 
   useFrame((_, delta) => {
     makeFollowCam();
@@ -114,7 +118,7 @@ export function Shiba() {
 
   return (
     <group ref={vehicle}>
-      <group ref={chassisBody} position={[0, 0, 20]} castShadow>
+      <group ref={chassisBody} position={[0, 0.5, 20]} castShadow>
         <group position={[0, 0.35, -0.5]} rotation={[-Math.PI / 2, 0, Math.PI]}>
           <mesh
             geometry={nodes.Group18985_default_0.geometry}
