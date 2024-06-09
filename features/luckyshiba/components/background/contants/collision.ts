@@ -14,4 +14,11 @@ export const HILL_SHAPE: CompoundShape = [
     position: [-10.25, 0, 5],
     type: 'Box',
   },
+  {
+    //왼쪽 계단1
+    args: [4.9, 1, 1.8],
+    position: [-2, 0, -5],
+    rotation: [0, -Math.PI / 2, -Math.PI / 8],
+    type: 'Box',
+  },
 ];

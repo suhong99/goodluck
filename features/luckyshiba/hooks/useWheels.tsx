@@ -13,25 +13,6 @@ type WheelInfo = {
   front: number;
 };
 
-// interface WheelInfoOptions {
-//   radius: number;
-//   directionLocal: [number, number, number];
-//   axleLocal: [number, number, number];
-//   suspensionStiffness: number;
-//   suspensionRestLength: number;
-//   frictionSlip: number;
-//   dampingRelaxation: number;
-//   dampingCompression: number;
-//   maxSuspensionForce: number;
-//   rollInfluence: number;
-//   maxSuspensionTravel: number;
-//   customSlidingRotationalSpeed: number;
-//   useCustomSlidingRotationalSpeed: boolean;
-//   sleepSpeedLimit: number;
-//   chassisConnectionPointLocal: [number, number, number];
-//   isFrontWheel: boolean;
-// }
-
 type UseWheelsReturnType = [React.RefObject<Object3D>[], WheelInfoOptions[]];
 
 export const useWheels = ({
@@ -47,8 +28,8 @@ export const useWheels = ({
     useRef<Object3D>(null),
   ];
 
-  const radius = 0.05;
-  const wheelPosition = -0.4 * height;
+  const radius = 0.2;
+  const wheelPosition = -0.43 * height;
 
   const wheelInfo: Omit<
     WheelInfoOptions,
@@ -59,7 +40,7 @@ export const useWheels = ({
     axleLocal: [1, 0, 0], // 바퀴의 로컬 회전 축 벡터 (세계 좌표계 기준)
     suspensionStiffness: 25, // 서스펜션 강성 (낮을수록 부드럽고 높을수록 강하게)
     suspensionRestLength: 0.1, // 서스펜션 초기 길이 (미터)
-    frictionSlip: 5, // 마찰력
+    frictionSlip: 6, // 마찰력
     dampingRelaxation: 1,
     dampingCompression: 1, // 댐핑 관련 매개변수 (낮을수록 진동이 심하게, 높을수록 안정적)
     maxSuspensionForce: 100000, // 최대 서스펜션 힘 (넘어지지 않도록 하는데 사용)
@@ -70,25 +51,31 @@ export const useWheels = ({
     // sleepSpeedLimit: 0.01, // 슬립 상태에서 자동으로 차량을 꺼냄 (낮을수록 민감, 높을수록 허용)
   };
 
+  const widthDegree = 0.5;
+
   const wheelInfos: WheelInfoOptions[] = [
     {
       ...wheelInfo,
-      chassisConnectionPointLocal: [-width * 0.65, wheelPosition, front],
+      chassisConnectionPointLocal: [-width * widthDegree, wheelPosition, front],
       isFrontWheel: true,
     },
     {
       ...wheelInfo,
-      chassisConnectionPointLocal: [width * 0.65, wheelPosition, front],
+      chassisConnectionPointLocal: [width * widthDegree, wheelPosition, front],
       isFrontWheel: true,
     },
     {
       ...wheelInfo,
-      chassisConnectionPointLocal: [-width * 0.65, wheelPosition, -front],
+      chassisConnectionPointLocal: [
+        -width * widthDegree,
+        wheelPosition,
+        -front,
+      ],
       isFrontWheel: false,
     },
     {
       ...wheelInfo,
-      chassisConnectionPointLocal: [width * 0.65, wheelPosition, -front],
+      chassisConnectionPointLocal: [width * widthDegree, wheelPosition, -front],
       isFrontWheel: false,
     },
   ];
@@ -99,7 +86,7 @@ export const useWheels = ({
     type: 'Kinematic',
     shapes: [
       {
-        args: [wheelInfo.radius, wheelInfo.radius, 0.025, 16],
+        args: [wheelInfo.radius, wheelInfo.radius, 0.1, 16],
         rotation: [0, 0, -Math.PI / 2],
         type: 'Cylinder',
       },

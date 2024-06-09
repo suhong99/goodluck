@@ -6,6 +6,7 @@ type InputState = {
   left: boolean;
   right: boolean;
   jump: boolean;
+  stand: boolean;
 };
 
 type KeyMap = {
@@ -19,6 +20,7 @@ export const useInput = (): InputState => {
     left: false,
     right: false,
     jump: false,
+    stand: false,
   });
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export const useInput = (): InputState => {
       KeyA: 'left',
       KeyD: 'right',
       Space: 'jump',
+      KeyR: 'stand',
     };
 
     const findKey = (key: string): keyof InputState | undefined => keys[key];
