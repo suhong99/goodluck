@@ -1,5 +1,12 @@
 'use client';
-import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
+import {
+  Euler,
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  Quaternion,
+  Vector3,
+} from 'three';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -31,13 +38,16 @@ export function Shiba() {
   const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
-  const worldQuaternion = useMemo(() => new Quaternion(), []);
+  // const worldQuaternion = useMemo(() => new Quaternion(), []);
+  const velocity = useRef([0, 0, 0]);
+  const { forward, backward, left, right, jump, stand } = useInput();
 
   const position: [x: number, y: number, z: number] = [0, 1, 0];
   const width = 0.65;
   const height = 1.2;
   const front = 0.6;
-  const mass = 200;
+  const mass = 100;
+  const engineForce = 200;
 
   const chassisBodyArgs = [width, height, front * 2];
 
@@ -58,8 +68,6 @@ export function Shiba() {
     useRef<Group>(null)
   );
 
-  const { forward, backward, left, right, jump } = useInput();
-
   const [wheels, wheelInfos] = useWheels({ width, height, front });
 
   const [vehicle, vehicleApi] = useRaycastVehicle(
@@ -74,9 +82,9 @@ export function Shiba() {
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
+    chassisApi.velocity.subscribe((v) => (velocity.current = v));
     // pivot.position.lerp(worldPosition, 0.9);
   };
-  const engineForce = 100000;
 
   useEffect(() => {
     if (forward) {
@@ -88,7 +96,6 @@ export function Shiba() {
     } else {
       vehicleApi.applyEngineForce(0, 2);
       vehicleApi.applyEngineForce(0, 3);
-      // chassisApi.velocity.set(0,0,0)
     }
 
     if (left) {
@@ -106,11 +113,39 @@ export function Shiba() {
         vehicleApi.setSteeringValue(0, i);
       }
     }
-
     if (jump) {
-      chassisApi.velocity.set(0, 4, 0);
+      const [x, y, z] = velocity.current;
+      chassisApi.velocity.set(x * 1.2, y + 7, z * 1.2);
     }
-  }, [backward, chassisApi.velocity, forward, jump, left, right, vehicleApi]);
+
+    if (stand) {
+      const rotateQuaternion = new Quaternion().setFromAxisAngle(
+        new Vector3(0, 1, 0),
+        Math.PI / 2
+      );
+      const currentQuaternion = new Quaternion().setFromUnitVectors(
+        new Vector3(1, 0, 0),
+        worldDirection
+      );
+      currentQuaternion.multiply(rotateQuaternion); // y축 회전 적용
+      chassisApi.quaternion.set(
+        currentQuaternion.x,
+        currentQuaternion.y,
+        currentQuaternion.z,
+        currentQuaternion.w
+      ); // 쿼터니언을 직접 설정
+    }
+  }, [
+    backward,
+    stand,
+    worldDirection,
+    chassisApi,
+    forward,
+    jump,
+    left,
+    right,
+    vehicleApi,
+  ]);
 
   useFrame((_, delta) => {
     makeFollowCam();
