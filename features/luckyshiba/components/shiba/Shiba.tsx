@@ -1,12 +1,5 @@
 'use client';
-import {
-  Euler,
-  Group,
-  Mesh,
-  MeshBasicMaterial,
-  Quaternion,
-  Vector3,
-} from 'three';
+import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -15,6 +8,7 @@ import { useInput } from '../../hooks/useInput';
 import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
 import { useWheels } from '../../hooks/useWheels';
+import { useControls } from 'leva';
 type GLTFResult = GLTF & {
   nodes: {
     Group18985_default_0: Mesh;
@@ -42,12 +36,13 @@ export function Shiba() {
   const velocity = useRef([0, 0, 0]);
   const { forward, backward, left, right, jump, stand } = useInput();
 
-  const position: [x: number, y: number, z: number] = [0, 1, 0];
+  const position: [x: number, y: number, z: number] = [10, 8, 2];
+
   const width = 0.65;
   const height = 1.2;
   const front = 0.6;
   const mass = 100;
-  const engineForce = 200;
+  const engineForce = 400;
 
   const chassisBodyArgs = [width, height, front * 2];
 
@@ -55,7 +50,7 @@ export function Shiba() {
     () => ({
       position,
       mass: mass,
-      rotation: [0, 0, 0],
+      rotation: [0, -Math.PI / 2, 0],
       collisionFilterGroup: 5,
       shapes: [
         {
