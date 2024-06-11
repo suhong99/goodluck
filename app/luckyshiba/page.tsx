@@ -7,7 +7,7 @@ import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import DrawCall from '@/shared/components/3dmodel/DrawCall';
 
 import { color } from '@/shared/contants/color';
-import { Debug, Physics, Triplet } from '@react-three/cannon';
+import { Debug, Physics } from '@react-three/cannon';
 import { OrbitControls, StatsGl } from '@react-three/drei';
 import { useControls } from 'leva';
 

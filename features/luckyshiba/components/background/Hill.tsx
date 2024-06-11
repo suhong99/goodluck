@@ -1,7 +1,12 @@
 import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
-import { Triplet, useCompoundBody } from '@react-three/cannon';
-import { useRef } from 'react';
-import { HILL_SHAPE } from './contants/collision';
+import {
+  Triplet,
+  useCompoundBody,
+  useConvexPolyhedron,
+} from '@react-three/cannon';
+import { useMemo, useRef } from 'react';
+import { HILL_SHAPE, SMALL_ROCKS } from './contants/collision';
+import { useControls } from 'leva';
 
 export default function Hill({
   nodes,
@@ -16,7 +21,7 @@ export default function Hill({
       rotation: [0, 0, 0],
       collisionFilterGroup: 3,
       type: 'Static',
-      shapes: HILL_SHAPE,
+      shapes: [...HILL_SHAPE, ...SMALL_ROCKS],
     }),
     useRef(null)
   );
@@ -47,13 +52,13 @@ export default function Hill({
         scale={100}
       />
 
-      <mesh
+      {/* <mesh
         // 우측 풀
         geometry={nodes.characters010_wheat_0.geometry}
         material={materials.wheat}
         rotation={[0, 0, -Math.PI / 2]}
         scale={100}
-      />
+      /> */}
     </>
   );
 }
