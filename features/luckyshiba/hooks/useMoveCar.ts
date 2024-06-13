@@ -1,22 +1,44 @@
 import { useEffect, useRef } from 'react';
 import { useInput } from './useInput';
-import { PublicApi, RaycastVehiclePublicApi } from '@react-three/cannon';
-import { Quaternion, Vector3 } from 'three';
+import {
+  PublicApi,
+  RaycastVehiclePublicApi,
+  useRaycastVehicle,
+} from '@react-three/cannon';
+import { Group, Object3DEventMap, Quaternion, Vector3 } from 'three';
+import { useWheels } from './useWheels';
 
 type MoveCarProps = {
-  vehicleApi: RaycastVehiclePublicApi;
   chassisApi: PublicApi;
+  chassisBody: React.RefObject<Group<Object3DEventMap>>;
   worldDirection: Vector3;
+  bodyInfo: {
+    width: number;
+    height: number;
+    front: number;
+  };
 };
 
 export const useMoveCar = ({
-  vehicleApi,
   chassisApi,
   worldDirection,
+  chassisBody,
+  bodyInfo,
 }: MoveCarProps) => {
   const { forward, backward, left, right, jump, stand } = useInput();
   const engineForce = 400;
   const velocity = useRef([0, 0, 0]);
+  const { width, height, front } = bodyInfo;
+  const [wheels, wheelInfos] = useWheels({ width, height, front });
+
+  const [vehicle, vehicleApi] = useRaycastVehicle(
+    () => ({
+      chassisBody,
+      wheelInfos,
+      wheels,
+    }),
+    useRef<Group>(null)
+  );
 
   useEffect(() => {
     chassisApi.velocity.subscribe((v) => (velocity.current = v));
@@ -80,4 +102,6 @@ export const useMoveCar = ({
     right,
     vehicleApi,
   ]);
+
+  return { vehicle, vehicleApi };
 };
