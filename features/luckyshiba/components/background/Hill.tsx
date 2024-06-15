@@ -18,7 +18,6 @@ export default function Hill({
   const [hillBody, _] = useCompoundBody(
     () => ({
       mass: 0,
-      rotation: [0, 0, 0],
       collisionFilterGroup: 3,
       type: 'Static',
       shapes: [...HILL_SHAPE, ...SMALL_ROCKS],

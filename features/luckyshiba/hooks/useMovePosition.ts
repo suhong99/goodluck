@@ -21,7 +21,7 @@ export const useMovePosition = ({
 
   const controlMovement = (delta: number) => {
     if (forward || backward) {
-      const speed = delta * 4;
+      const speed = delta * 7;
       let { x, y, z } = worldPosition;
       let { x: rx, y: ry, z: rz } = worldDirection;
       let [newX, newY, newZ] = [x, y, z];

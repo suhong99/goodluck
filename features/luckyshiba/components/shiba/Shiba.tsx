@@ -1,6 +1,6 @@
 'use client';
 import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useCompoundBody, useRaycastVehicle } from '@react-three/cannon';
@@ -8,6 +8,7 @@ import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
 
 import { useMovePosition } from '../../hooks/useMovePosition';
+import { useInput } from '../../hooks/useInput';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -48,6 +49,7 @@ export function Shiba() {
       mass: mass,
       rotation: [0, 0, 0],
       collisionFilterGroup: 5,
+      angularDamping: 0.95,
       shapes: [
         {
           args: chassisBodyArgs,

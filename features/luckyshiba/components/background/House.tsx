@@ -1,6 +1,7 @@
 import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
 import { useCompoundBody, useTrimesh } from '@react-three/cannon';
 import { useRef } from 'react';
+import { HOUSE_GROUND, HOUSE_SHAPE, HOUSE_STAIR } from './contants/collision';
 
 export default function House({
   nodes,
@@ -15,64 +16,7 @@ export default function House({
       rotation: [0, 0, 0],
       collisionFilterGroup: 3,
       type: 'Static',
-      shapes: [
-        {
-          // 집바닥
-          args: [10.5, 2.5, 26],
-          position: [-10.25, 0, -1.5],
-          type: 'Box',
-        },
-        {
-          // 좌측후면 입구
-          args: [1.9, 2.5, 5],
-          position: [-4, 0, -9.5],
-          type: 'Box',
-        },
-        {
-          // 좌측후면 입구
-          args: [1.9, 2.5, 3],
-          position: [-4, 0, 9.5],
-          type: 'Box',
-        },
-        {
-          //수레바퀴
-          args: [3.1, 3.1, 2, 16],
-          position: [-4.2, 2, 4.3],
-          rotation: [0, 0, Math.PI / 2],
-          type: 'Cylinder',
-        },
-        {
-          //집기둥
-          args: [5, 9.6, 9.5],
-          position: [-9, 2, 0.5],
-          type: 'Box',
-        },
-        {
-          //왼쪽 계단1
-          args: [4.9, 1, 1.8],
-          position: [-11.3, 2.1, 9.8],
-          rotation: [0, 0, -Math.PI / 5.5],
-          type: 'Box',
-        },
-        {
-          args: [2, 3.9, 2],
-          position: [-14.1, 1.9, 9.7],
-          type: 'Box',
-        },
-        {
-          //왼쪽 계단3
-          args: [6.1, 1, 2],
-          position: [-14.1, 4.6, 7],
-          rotation: [0, -Math.PI / 2, -Math.PI / 5],
-          type: 'Box',
-        },
-        {
-          //2층
-          args: [3.5, 1.8, 9],
-          position: [-13.2, 5.9, 0.3],
-          type: 'Box',
-        },
-      ],
+      shapes: [...HOUSE_GROUND, ...HOUSE_SHAPE, ...HOUSE_STAIR],
     }),
     useRef(null)
   );
