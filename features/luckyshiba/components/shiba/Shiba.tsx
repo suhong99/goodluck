@@ -9,6 +9,7 @@ import { useFollowCam } from '@/shared/hooks/useFollowCam';
 
 import { useMovePosition } from '../../hooks/useMovePosition';
 import { useInput } from '../../hooks/useInput';
+import { ShibaLocation, useShibaStore } from '@/store/shiba';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -33,7 +34,7 @@ export function Shiba() {
   const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
-
+  const { location, setLocation, eventable, triggerEvent } = useShibaStore();
   const position: [x: number, y: number, z: number] = [0, 1, 0];
 
   const width = 0.65;
@@ -74,9 +75,31 @@ export function Shiba() {
     // pivot.position.lerp(worldPosition, 0.9);
   };
 
+  const checkMapType = () => {
+    const { x, y, z } = new Vector3().setFromMatrixPosition(
+      chassisBody.current!.matrixWorld
+    );
+    let newLocation: ShibaLocation;
+
+    if (y < 1.1) {
+      newLocation = x > 10.5 && z > 4 ? '언덕' : '강';
+    } else {
+      newLocation = x >= 2.5 ? '언덕' : '집';
+    }
+
+    //TODO: 위치가 전역 상태 관리가 필요한가?
+    // location !== newLocation && setLocation(newLocation);
+
+    if (eventable) {
+      triggerEvent();
+      console.log(eventable, location);
+    }
+  };
+
   useFrame((_, delta) => {
     makeFollowCam();
     controlMovement(delta);
+    checkMapType();
   });
 
   return (
