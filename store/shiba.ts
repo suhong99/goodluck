@@ -1,24 +1,12 @@
 import { create } from 'zustand';
-export type ShibaLocation = '강' | '집' | '언덕';
 
 interface ShibaState {
-  location: ShibaLocation;
   eventable: boolean;
-  setLocation: (newLocation: '강' | '집' | '언덕') => void;
   triggerEvent: () => void;
 }
 
 export const useShibaStore = create<ShibaState>()((set) => ({
-  location: '강',
   eventable: true,
-
-  setLocation: (newLocation) => {
-    set((state) => ({
-      ...state,
-      location: newLocation,
-    }));
-  },
-
   triggerEvent: async () => {
     set((state) => ({
       ...state,
