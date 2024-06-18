@@ -11,9 +11,10 @@ import { createPortal } from 'react-dom';
 
 import Modal from './Modal';
 import { MobileRecordList } from '@/features/enforcement/components/RecordList';
+import EventResult from '@/features/luckyshiba/components/event/EventResult';
 
 type ModalProps = Omit<ComponentProps<typeof Modal>, 'children'>;
-type ModalContent = 'enforce';
+type ModalContent = 'enforce' | 'shiba';
 
 interface ModalContextValue {
   open: ({ type }: { type: ModalContent }) => void;
@@ -62,6 +63,7 @@ export function ModalContextProvider({
         ? createPortal(
             <Modal {...modalState}>
               {type === 'enforce' && <MobileRecordList />}
+              {type === 'shiba' && <EventResult />}
             </Modal>,
             $portal_root
           )
