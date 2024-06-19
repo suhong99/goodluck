@@ -1,0 +1,27 @@
+.modalWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.important {
+  color: rebeccapurple;
+  font-weight: 700;
+}
+
+.imageContainer {
+  position: relative;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.copyrightLink {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 8px;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
