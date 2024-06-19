@@ -1,9 +1,9 @@
 'use client';
 import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { useCompoundBody, useRaycastVehicle } from '@react-three/cannon';
+import { useCompoundBody } from '@react-three/cannon';
 import { useFrame } from '@react-three/fiber';
 import { useFollowCam } from '@/shared/hooks/useFollowCam';
 
@@ -11,7 +11,11 @@ import { useMovePosition } from '../../hooks/useMovePosition';
 import { useInput } from '../../hooks/useInput';
 import { useShibaStore } from '@/store/shiba';
 import { ShibaLocation } from '@/shared/contants/model';
-import { SHIBA_EVENT, ShibaEvent } from '@/shared/contants/shibaEvent';
+import {
+  EventResultProps,
+  SHIBA_EVENT,
+  ShibaEvent,
+} from '@/shared/contants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
 
 type GLTFResult = GLTF & {
@@ -99,30 +103,24 @@ export function Shiba() {
 
   const eventByLocation = (location: ShibaLocation) => {
     const eventList = SHIBA_EVENT[location];
-    const { type, percent } = getRandomEvent(eventList);
+    const selectedEvent = getRandomEvent(eventList);
 
-    open({ type: 'shiba' });
-
-    console.log(
-      `Event triggered at ${location}: ${percent}%의 확률로 ${type} `
-    );
+    open({ type: 'shiba', event: selectedEvent });
   };
 
-  const getRandomEvent = (
-    eventList: ShibaEvent[]
-  ): Omit<ShibaEvent, 'weight'> & { percent: number } => {
+  const getRandomEvent = (eventList: ShibaEvent[]): EventResultProps => {
     const totalWeight = eventList.reduce((sum, event) => sum + event.weight, 0);
     let random = Math.random() * totalWeight;
 
     for (const event of eventList) {
-      const { type, weight } = event;
+      const { weight } = event;
       if (random < weight) {
-        return { type, percent: Math.floor((weight / totalWeight) * 100) };
+        return { ...event, percent: Math.floor((weight / totalWeight) * 100) };
       }
       random -= event.weight;
     }
     return {
-      type: eventList[eventList.length - 1].type,
+      ...eventList[eventList.length - 1],
       percent:
         Math.floor(eventList[eventList.length - 1].weight / totalWeight) * 100,
     };

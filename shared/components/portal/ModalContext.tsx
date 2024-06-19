@@ -12,12 +12,16 @@ import { createPortal } from 'react-dom';
 import Modal from './Modal';
 import { MobileRecordList } from '@/features/enforcement/components/RecordList';
 import EventResult from '@/features/luckyshiba/components/event/EventResult';
+import { EventResultProps } from '@/shared/contants/shibaEvent';
 
 type ModalProps = Omit<ComponentProps<typeof Modal>, 'children'>;
 type ModalContent = 'enforce' | 'shiba';
+type OpenProps =
+  | { type: 'enforce' }
+  | { type: 'shiba'; event: EventResultProps };
 
 interface ModalContextValue {
-  open: ({ type }: { type: ModalContent }) => void;
+  open: (info: OpenProps) => void;
 }
 
 const Context = createContext<ModalContextValue | undefined>(undefined);
@@ -34,6 +38,7 @@ export function ModalContextProvider({
 }) {
   const [modalState, setModalState] = useState(defaultValues);
   const [type, setType] = useState<ModalContent | undefined>();
+  const [event, setEvent] = useState<EventResultProps>();
   const $portal_root =
     typeof window === 'undefined'
       ? null
@@ -44,12 +49,15 @@ export function ModalContextProvider({
   }, []);
 
   const open = useCallback(
-    ({ type }: { type: ModalContent }) => {
+    (info: OpenProps) => {
       setModalState({
         open: true,
         close,
       });
-      setType(type);
+      setType(info.type);
+      if (info.type !== 'enforce') {
+        setEvent(info.event);
+      }
     },
     [close]
   );
@@ -63,7 +71,7 @@ export function ModalContextProvider({
         ? createPortal(
             <Modal {...modalState}>
               {type === 'enforce' && <MobileRecordList />}
-              {type === 'shiba' && <EventResult />}
+              {type === 'shiba' && event && <EventResult event={event} />}
             </Modal>,
             $portal_root
           )
