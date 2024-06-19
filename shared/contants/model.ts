@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
-type SHIBA_LOCATION = '강' | '집' | '언덕';
+type ShibaLocation = '강' | '집' | '언덕';
 
-type SHIBA_BG_NODES = {
+type ShibaBGNodes = {
   characters_STONE_a_0: THREE.Mesh;
   characters_STONE_a_0_1: THREE.Mesh;
   characters001_charcters_0: THREE.Mesh;
@@ -18,7 +18,7 @@ type SHIBA_BG_NODES = {
   characters010_wheat_0: THREE.Mesh;
 };
 
-type SHIBA_BG_MATERIALS = {
+type ShibaBGMaterials = {
   STONE_a: THREE.MeshBasicMaterial;
   charcters: THREE.MeshBasicMaterial;
   watermill: THREE.MeshBasicMaterial;
@@ -32,4 +32,4 @@ type SHIBA_BG_MATERIALS = {
   wheat: THREE.MeshBasicMaterial;
 };
 
-export type { SHIBA_BG_MATERIALS, SHIBA_BG_NODES, SHIBA_LOCATION };
+export type { ShibaBGMaterials, ShibaBGNodes, ShibaLocation };

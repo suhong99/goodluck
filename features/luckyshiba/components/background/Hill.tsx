@@ -1,4 +1,4 @@
-import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
+import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
 import {
   Triplet,
   useCompoundBody,
@@ -12,8 +12,8 @@ export default function Hill({
   nodes,
   materials,
 }: {
-  nodes: SHIBA_BG_NODES;
-  materials: SHIBA_BG_MATERIALS;
+  nodes: ShibaBGNodes;
+  materials: ShibaBGMaterials;
 }) {
   const [hillBody, _] = useCompoundBody(
     () => ({

@@ -1,8 +1,6 @@
 'use client';
 
-import { Loader, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import { ModalContextProvider } from '../portal/ModalContext';
 
 type CameraOpt = { position: [number, number, number]; fov?: number };

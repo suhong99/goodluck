@@ -12,12 +12,12 @@ import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import House from './House';
 import Bridge from './Bridge';
-import { SHIBA_BG_MATERIALS, SHIBA_BG_NODES } from '@/shared/contants/model';
+import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
 import Hill from './Hill';
 
 type GLTFResult = GLTF & {
-  nodes: SHIBA_BG_NODES;
-  materials: SHIBA_BG_MATERIALS;
+  nodes: ShibaBGNodes;
+  materials: ShibaBGMaterials;
 };
 
 type ContextType = Record<
