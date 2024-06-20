@@ -2,7 +2,6 @@ import { Group, Object3DEventMap, Quaternion, Vector3 } from 'three';
 import { useInput } from './useInput';
 import { PublicApi } from '@react-three/cannon';
 import { useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { useShibaStore } from '@/store/shiba';
 type MovePositionProps = {
   worldPosition: Vector3;
@@ -59,10 +58,6 @@ export const useMovePosition = ({
     }
 
     if (jump) {
-      if (eventable) {
-        blockEvent();
-      }
-
       if (isLanded) {
         setIsLanded(false);
       }
