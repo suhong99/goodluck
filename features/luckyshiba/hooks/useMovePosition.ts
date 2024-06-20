@@ -2,7 +2,7 @@ import { Group, Object3DEventMap, Quaternion, Vector3 } from 'three';
 import { useInput } from './useInput';
 import { PublicApi } from '@react-three/cannon';
 import { useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useShibaStore } from '@/store/shiba';
 type MovePositionProps = {
   worldPosition: Vector3;
   worldDirection: Vector3;
@@ -18,7 +18,7 @@ export const useMovePosition = ({
 }: MovePositionProps) => {
   const { forward, backward, left, right, jump, stand } = useInput();
   const worldQuaternion = useMemo(() => new Quaternion(), []);
-
+  const { isLanded, setIsLanded, blockEvent, eventable } = useShibaStore();
   const controlMovement = (delta: number) => {
     if (forward || backward) {
       const speed = delta * 7;
@@ -58,6 +58,9 @@ export const useMovePosition = ({
     }
 
     if (jump) {
+      if (isLanded) {
+        setIsLanded(false);
+      }
       chassisApi.velocity.set(0, 5, 0);
     }
   };

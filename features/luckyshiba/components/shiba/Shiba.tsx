@@ -17,6 +17,7 @@ import {
   ShibaEvent,
 } from '@/shared/contants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
+import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -41,9 +42,11 @@ export function Shiba() {
   const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
-  const { eventable, triggerEvent } = useShibaStore();
+  const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
+    useShibaStore();
   const position: [x: number, y: number, z: number] = [0, 1, 0];
-  const { jump } = useInput();
+  const { left, right, forward, backward, jump } = useInput();
+  const isMoving = forward || backward || left || right;
   const width = 0.65;
   const height = 1.2;
   const front = 0.6;
@@ -59,6 +62,9 @@ export function Shiba() {
       rotation: [0, 0, 0],
       collisionFilterGroup: 5,
       angularDamping: 0.95,
+      onCollide: () => {
+        !isLanded && setIsLanded(true);
+      },
       shapes: [
         {
           args: chassisBodyArgs,
@@ -96,7 +102,7 @@ export function Shiba() {
     }
 
     if (eventable) {
-      triggerEvent();
+      blockEvent();
       eventByLocation(newLocation);
     }
   };
@@ -105,7 +111,7 @@ export function Shiba() {
     const eventList = SHIBA_EVENT[location];
     const selectedEvent = getRandomEvent(eventList);
 
-    open({ type: 'shiba', event: selectedEvent });
+    open({ type: 'shiba', event: selectedEvent }, getEventableState);
   };
 
   const getRandomEvent = (eventList: ShibaEvent[]): EventResultProps => {
@@ -129,7 +135,7 @@ export function Shiba() {
   useFrame((_, delta) => {
     makeFollowCam();
     controlMovement(delta);
-    !jump && checkMapType();
+    !jump && isLanded && isMoving && checkMapType();
   });
 
   return (
