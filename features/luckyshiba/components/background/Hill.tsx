@@ -51,13 +51,13 @@ export default function Hill({
         scale={100}
       />
 
-      {/* <mesh
+      <mesh
         // 우측 풀
         geometry={nodes.characters010_wheat_0.geometry}
         material={materials.wheat}
         rotation={[0, 0, -Math.PI / 2]}
         scale={100}
-      /> */}
+      />
     </>
   );
 }

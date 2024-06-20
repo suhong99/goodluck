@@ -21,7 +21,7 @@ type OpenProps =
   | { type: 'shiba'; event: EventResultProps };
 
 interface ModalContextValue {
-  open: (info: OpenProps) => void;
+  open: (info: OpenProps, closeFn?: () => void) => void;
 }
 
 const Context = createContext<ModalContextValue | undefined>(undefined);
@@ -39,20 +39,24 @@ export function ModalContextProvider({
   const [modalState, setModalState] = useState(defaultValues);
   const [type, setType] = useState<ModalContent | undefined>();
   const [event, setEvent] = useState<EventResultProps>();
+
   const $portal_root =
     typeof window === 'undefined'
       ? null
       : document.getElementById('root-portal');
 
-  const close = useCallback(() => {
+  const close = useCallback((fn?: () => void) => {
     setModalState(defaultValues);
+    if (fn) {
+      fn();
+    }
   }, []);
 
   const open = useCallback(
-    (info: OpenProps) => {
+    (info: OpenProps, closeFn?: () => void) => {
       setModalState({
         open: true,
-        close,
+        close: () => close(closeFn),
       });
       setType(info.type);
       if (info.type !== 'enforce') {
