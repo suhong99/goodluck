@@ -20,12 +20,6 @@ export default function LuckyShiba() {
 
   return (
     <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
-      {/* <OrbitControls
-        makeDefault
-        enablePan={false}
-        minDistance={2}
-        maxDistance={30}
-      /> */}
       <Physics gravity={[gravity.x, gravity.y, gravity.z]}>
         <Debug>
           <ambientLight />

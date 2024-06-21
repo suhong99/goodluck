@@ -12,12 +12,12 @@ export const useFollowCam = () => {
       camera.position.set(1, 2, 3.5);
       camera.rotation.x = -0.5;
 
-      pivot.add(camera);
+      // pivot.add(camera);
       scene.add(pivot);
     };
 
     makeCamera();
   }, [camera, pivot, scene]);
 
-  return { pivot };
+  return { pivot, camera };
 };
