@@ -1,11 +1,11 @@
 'use client';
+
 import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
 import React, { useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import { GLTF } from 'three-stdlib';
+import { GLTF, OrbitControls as OrbitControlsRef } from 'three-stdlib';
 import { useCompoundBody } from '@react-three/cannon';
 import { useFrame } from '@react-three/fiber';
-import { useFollowCam } from '@/shared/hooks/useFollowCam';
 
 import { useMovePosition } from '../../hooks/useMovePosition';
 import { useInput } from '../../hooks/useInput';
@@ -17,7 +17,6 @@ import {
   ShibaEvent,
 } from '@/shared/contants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
-import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -39,7 +38,7 @@ useGLTF.preload('/models/shiba.glb');
 
 export function Shiba() {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
-  const { pivot } = useFollowCam();
+  // const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
   const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
@@ -83,10 +82,14 @@ export function Shiba() {
     chassisBody,
   });
 
+  const orbitControlsRef = useRef<OrbitControlsRef>(null);
+
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
-    // pivot.position.lerp(worldPosition, 0.9);
+    if (orbitControlsRef.current) {
+      orbitControlsRef.current.target.copy(worldPosition);
+    }
   };
 
   const checkMapType = () => {
@@ -139,23 +142,26 @@ export function Shiba() {
   });
 
   return (
-    <group>
-      <group ref={chassisBody} position={[0, 0.5, 20]} castShadow>
-        <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
-          <mesh
-            geometry={nodes.Group18985_default_0.geometry}
-            material={materials['default']}
-          />
-          <mesh
-            geometry={nodes.Box002_default_0.geometry}
-            material={materials['default']}
-          />
-          <mesh
-            geometry={nodes.Object001_default_0.geometry}
-            material={materials['default']}
-          />
+    <>
+      <group>
+        <group ref={chassisBody} position={[0, 0.5, 20]} castShadow>
+          <group position={[0, 0.35, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <mesh
+              geometry={nodes.Group18985_default_0.geometry}
+              material={materials['default']}
+            />
+            <mesh
+              geometry={nodes.Box002_default_0.geometry}
+              material={materials['default']}
+            />
+            <mesh
+              geometry={nodes.Object001_default_0.geometry}
+              material={materials['default']}
+            />
+          </group>
         </group>
       </group>
-    </group>
+      <OrbitControls ref={orbitControlsRef} minDistance={2} maxDistance={10} />
+    </>
   );
 }

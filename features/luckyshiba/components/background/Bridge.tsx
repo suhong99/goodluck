@@ -1,9 +1,5 @@
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
-import {
-  Triplet,
-  useCompoundBody,
-  useConvexPolyhedron,
-} from '@react-three/cannon';
+import { useCompoundBody } from '@react-three/cannon';
 import { BRIDGE_UNDER, BRIDGE_UPPER } from './contants/collision';
 import { useRef } from 'react';
 
