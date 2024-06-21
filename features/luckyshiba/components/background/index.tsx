@@ -14,6 +14,7 @@ import House from './House';
 import Bridge from './Bridge';
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
 import Hill from './Hill';
+import Manual from './Manual';
 
 type GLTFResult = GLTF & {
   nodes: ShibaBGNodes;
@@ -43,6 +44,7 @@ export function Background() {
           />
         </group>
       </group>
+      <Manual />
     </group>
   );
 }

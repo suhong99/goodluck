@@ -17,7 +17,6 @@ import {
   ShibaEvent,
 } from '@/shared/contants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
-import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -39,7 +38,7 @@ useGLTF.preload('/models/shiba.glb');
 
 export function Shiba() {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
-  const { pivot } = useFollowCam();
+  // const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
   const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
