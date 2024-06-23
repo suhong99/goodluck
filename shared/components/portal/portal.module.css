@@ -26,6 +26,13 @@
   scrollbar-width: none;
 }
 
+@media (min-width: 1000px) {
+  .modal {
+    max-width: 800px;
+    max-height: 700px;
+  }
+}
+
 .modal::-webkit-scrollbar {
   display: none;
 }

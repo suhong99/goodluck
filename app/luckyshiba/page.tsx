@@ -3,12 +3,13 @@
 import { Background } from '@/features/luckyshiba/components/background';
 import Walls from '@/features/luckyshiba/components/background/Walls';
 import { Shiba } from '@/features/luckyshiba/components/shiba/Shiba';
+import TutorialOpener from '@/features/luckyshiba/components/tutorial';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import DrawCall from '@/shared/components/3dmodel/DrawCall';
 
 import { color } from '@/shared/contants/color';
 import { Debug, Physics } from '@react-three/cannon';
-import { OrbitControls, StatsGl } from '@react-three/drei';
+import { StatsGl } from '@react-three/drei';
 import { useControls } from 'leva';
 
 export default function LuckyShiba() {
@@ -21,15 +22,16 @@ export default function LuckyShiba() {
   return (
     <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
       <Physics gravity={[gravity.x, gravity.y, gravity.z]}>
-        <Debug>
-          <ambientLight />
-          <directionalLight position={[0, 5, 5]} />
-          <Shiba />
-          <Walls />
-          <Background />
-          <DrawCall />
-          <StatsGl />
-        </Debug>
+        {/* <Debug> */}
+        <ambientLight />
+        <directionalLight position={[0, 5, 5]} />
+        <Shiba />
+        <Walls />
+        <Background />
+        <DrawCall />
+        <StatsGl />
+        <TutorialOpener />
+        {/* </Debug> */}
       </Physics>
     </CanvasLayout>
   );
