@@ -13,11 +13,12 @@ import Modal from './Modal';
 import { MobileRecordList } from '@/features/enforcement/components/RecordList';
 import EventResult from '@/features/luckyshiba/components/event/EventResult';
 import { EventResultProps } from '@/shared/contants/shibaEvent';
+import GuidePopUp from '@/features/luckyshiba/components/tutorial/GuidePopup';
 
 type ModalProps = Omit<ComponentProps<typeof Modal>, 'children'>;
-type ModalContent = 'enforce' | 'shiba';
+type ModalContent = 'enforce' | 'shiba' | 'shibaTutorial';
 type OpenProps =
-  | { type: 'enforce' }
+  | { type: Exclude<ModalContent, 'shiba'> }
   | { type: 'shiba'; event: EventResultProps };
 
 interface ModalContextValue {
@@ -59,7 +60,7 @@ export function ModalContextProvider({
         close: () => close(closeFn),
       });
       setType(info.type);
-      if (info.type !== 'enforce') {
+      if (info.type === 'shiba') {
         setEvent(info.event);
       }
     },
@@ -76,6 +77,7 @@ export function ModalContextProvider({
             <Modal {...modalState}>
               {type === 'enforce' && <MobileRecordList />}
               {type === 'shiba' && event && <EventResult event={event} />}
+              {type === 'shibaTutorial' && <GuidePopUp />}
             </Modal>,
             $portal_root
           )

@@ -9,7 +9,7 @@ interface ShibaState {
 }
 
 export const useShibaStore = create<ShibaState>()((set) => ({
-  eventable: true,
+  eventable: false,
   isLanded: false,
   blockEvent: () => {
     set((state) => ({
