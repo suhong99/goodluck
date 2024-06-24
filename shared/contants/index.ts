@@ -6,4 +6,5 @@ export const NAVIGATION_LIST = [
 export const COLLECTIONS = {
   USERS: 'USERS',
   ENFORCEMENT: 'ENFORCEMENT',
+  SHIBA: 'SHIBA',
 };

@@ -15,15 +15,23 @@ interface CopyRightEvent extends BasicEvent {
   url: string;
 }
 
-export type ShibaEvent = NoCopyRightEvent | CopyRightEvent;
+type ShibaEvent = NoCopyRightEvent | CopyRightEvent;
 type EventWithPercent<T extends ShibaEvent> = Omit<T, 'weight'> & {
   percent: number;
 };
 
 // EventResultProps 타입 정의
-export type EventResultProps =
+type EventResultProps =
   | EventWithPercent<NoCopyRightEvent>
   | EventWithPercent<CopyRightEvent>;
+
+type EventType<T> = T extends { type: infer U } ? U : never;
+
+type ShibaEventType = {
+  [K in keyof typeof SHIBA_EVENT]: EventType<(typeof SHIBA_EVENT)[K][number]>;
+}[keyof typeof SHIBA_EVENT];
+
+export type { ShibaEvent, EventResultProps, ShibaEventType };
 
 export const SHIBA_EVENT: Record<ShibaLocation, ShibaEvent[]> = {
   강: [
