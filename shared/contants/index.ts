@@ -8,3 +8,5 @@ export const COLLECTIONS = {
   ENFORCEMENT: 'ENFORCEMENT',
   SHIBA: 'SHIBA',
 };
+
+export const MANUAL_SKIP = 'manualSkip';
