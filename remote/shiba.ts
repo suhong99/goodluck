@@ -1,13 +1,5 @@
 import { ShibaEventType } from '@/shared/contants/shibaEvent';
-import {
-  Timestamp,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-} from 'firebase/firestore';
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { store } from './firebase';
 import { COLLECTIONS } from '@/shared/contants';
 

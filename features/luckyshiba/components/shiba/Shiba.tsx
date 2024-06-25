@@ -18,6 +18,7 @@ import {
 } from '@/shared/contants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
 import { checkNewEvent } from '@/remote/shiba';
+import { useShibaEventStore } from '@/store/shibaEvent';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -54,6 +55,7 @@ export function Shiba() {
   const { open } = useModalContext();
 
   const chassisBodyArgs = [width, height, front * 2];
+  const { eventList, setEventStatus } = useShibaEventStore();
 
   const [chassisBody, chassisApi] = useCompoundBody(
     () => ({
@@ -112,10 +114,18 @@ export function Shiba() {
   };
 
   const eventByLocation = (location: ShibaLocation) => {
-    const eventList = SHIBA_EVENT[location];
-    const selectedEvent = getRandomEvent(eventList);
+    const occurableEvents = SHIBA_EVENT[location];
+    const selectedEvent = getRandomEvent(occurableEvents);
     open({ type: 'shiba', event: selectedEvent }, getEventableState);
-    checkNewEvent({ id: 'bt01063767006@gmail.com', type: selectedEvent.type });
+
+    if (!eventList[selectedEvent.type]) {
+      setEventStatus(selectedEvent.type);
+      //TODO: 아이디
+      checkNewEvent({
+        id: 'bt01063767006@gmail.com',
+        type: selectedEvent.type,
+      });
+    }
   };
 
   const getRandomEvent = (eventList: ShibaEvent[]): EventResultProps => {
