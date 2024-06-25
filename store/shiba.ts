@@ -19,6 +19,7 @@ export const useShibaStore = create<ShibaState>()((set) => ({
   },
   getEventableState: async () => {
     const randomDelay = Math.random() * 10000 + 5000;
+
     await new Promise((resolve) => setTimeout(resolve, randomDelay));
     set((state) => ({
       ...state,
