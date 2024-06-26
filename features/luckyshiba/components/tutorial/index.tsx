@@ -19,7 +19,10 @@ export default function TutorialOpener() {
 
     const checkEventList = async () => {
       const result = await eventCheckList('bt01063767006@gmail.com');
-      if (result) syncEventStatusWithDB(result);
+      if (result && result.length > 0) {
+        const types = result.map((event) => event.type);
+        syncEventStatusWithDB(types);
+      }
     };
 
     checkEventList();
