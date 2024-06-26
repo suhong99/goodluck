@@ -39,3 +39,34 @@
   font-weight: 700;
   font-size: large;
 }
+
+.EventListHtmlWrapper {
+  background-color: white;
+  width: 200px;
+  padding: 5px;
+  gap: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0.6;
+  border-radius: 8px;
+}
+
+.eventItem {
+  margin: 4px;
+  text-align: center;
+}
+
+.EventListTitle {
+  font-weight: 900;
+  font-size: large;
+  width: 100%;
+  text-align: center;
+  margin: 4px;
+  color: #86603a;
+}
+.checked {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 600;
+}

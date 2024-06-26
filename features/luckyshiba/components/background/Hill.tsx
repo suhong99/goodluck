@@ -1,12 +1,7 @@
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
-import {
-  Triplet,
-  useCompoundBody,
-  useConvexPolyhedron,
-} from '@react-three/cannon';
-import { useMemo, useRef } from 'react';
+import { useCompoundBody } from '@react-three/cannon';
+import { useRef } from 'react';
 import { HILL_SHAPE, SMALL_ROCKS } from './contants/collision';
-import { useControls } from 'leva';
 
 export default function Hill({
   nodes,
