@@ -19,6 +19,7 @@ import {
 import { useModalContext } from '@/shared/components/portal/ModalContext';
 import { checkNewEvent } from '@/remote/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
+import { useShowingProcessStore } from '@/store/showingProcess';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -45,6 +46,8 @@ export function Shiba() {
   const worldDirection = useMemo(() => new Vector3(), []);
   const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
     useShibaStore();
+
+  const { setIsVisible } = useShowingProcessStore();
   const position: [x: number, y: number, z: number] = [0, 1, 0];
   const { left, right, forward, backward, jump } = useInput();
   const isMoving = forward || backward || left || right;
@@ -110,6 +113,15 @@ export function Shiba() {
     if (eventable) {
       blockEvent();
       eventByLocation(newLocation);
+    }
+
+    //TODO : 이벤트추가 함수분리예정
+    // console.log(x, y, z);
+
+    if (Math.abs(5.5 - x) < 1 && Math.abs(-2.8 - z) < 1 && y < 2) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
     }
   };
 
