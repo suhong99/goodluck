@@ -74,12 +74,12 @@
   flex-direction: column;
   gap: 8px;
   margin-inline: 15%;
-  @media screen and (max-width: 1000px) {
+  @media (max-width: 1000px) {
     margin-inline: 10%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
   .row {
     font-size: 18px;
   }

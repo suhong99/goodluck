@@ -1,5 +1,12 @@
 import { ShibaEventType } from '@/shared/contants/shibaEvent';
-import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
+import {
+  Timestamp,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+} from 'firebase/firestore';
 import { store } from './firebase';
 import { COLLECTIONS } from '@/shared/contants';
 
@@ -40,16 +47,15 @@ export const eventCheckList = async (id: string) => {
 
     const snapshot = await getDocs(shibaQuery);
 
-    const types: string[] = [];
-
+    const result: { type: string; date: Timestamp }[] = [];
     snapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.type && !types.includes(data.type)) {
-        types.push(data.type);
+      const { type, date } = doc.data();
+      if (type && date) {
+        result.push({ type, date });
       }
     });
 
-    return types;
+    return result;
   } catch (error) {
     console.error(`이벤트 타입 목록 조회 중 오류 발생:`, error);
   }

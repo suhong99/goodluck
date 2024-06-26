@@ -85,3 +85,12 @@
 .inactive {
   color: gray;
 }
+
+@media (max-width: 600px) {
+  .active {
+    font-size: medium;
+  }
+  .inactive {
+    font-size: small;
+  }
+}
