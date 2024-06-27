@@ -17,6 +17,7 @@ export default function EventListGround() {
     height: 0.02,
     fontSize: 2,
   };
+
   return (
     <group position={[5.5, 0, -2.8]}>
       <motion.mesh
