@@ -100,3 +100,11 @@
     display: none;
   }
 }
+
+.success {
+  color: white;
+}
+
+.failure {
+  color: gray;
+}

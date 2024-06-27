@@ -27,7 +27,7 @@ export default async function EnforceRecord({
           >
             <span>{convertTimestampToKoreanDate(date)}</span>
             <span>
-              {percent}% <span className={styles.deskVisible}>{status}</span>
+              {percent}%<span className={styles.deskVisible}>{status}</span>
             </span>
           </li>
         ))}

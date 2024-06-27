@@ -12,7 +12,10 @@ export default function RecordList() {
     <div className={style.recordList}>
       <div className={style.subRecordList}>
         {firstTenRecords.map(({ id, percent, status }) => (
-          <div key={id}>
+          <div
+            key={id}
+            className={status === '성공' ? style.success : style.failure}
+          >
             {id}회 {percent}% {status}
           </div>
         ))}
@@ -36,7 +39,7 @@ export function MobileRecordList() {
       <div className={style.subRecordList}>
         {records.length > 0 ? (
           records.map(({ id, percent, status }) => (
-            <div key={id}>
+            <div key={id} className={status === '성공' ? '' : style.failure}>
               {id}회 {percent}% {status}
             </div>
           ))
