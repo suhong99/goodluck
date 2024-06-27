@@ -4,11 +4,12 @@ import { MANUAL_SKIP } from '@/shared/contants';
 import { useShibaStore } from '@/store/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { useEffect } from 'react';
-
+import { useSession } from 'next-auth/react';
 export default function TutorialOpener() {
   const { open } = useModalContext();
   const { getEventableState } = useShibaStore();
   const { syncEventStatusWithDB } = useShibaEventStore();
+  const { data } = useSession();
   useEffect(() => {
     const skipTutorial = localStorage.getItem(MANUAL_SKIP);
     if (skipTutorial) {
@@ -18,15 +19,19 @@ export default function TutorialOpener() {
     }
 
     const checkEventList = async () => {
-      const result = await eventCheckList('bt01063767006@gmail.com');
-      if (result && result.length > 0) {
-        const types = result.map((event) => event.type);
-        syncEventStatusWithDB(types);
+      const userId = data?.user?.email;
+
+      if (userId) {
+        const result = await eventCheckList(userId);
+        if (result && result.length > 0) {
+          const types = result.map((event) => event.type);
+          syncEventStatusWithDB(types);
+        }
       }
     };
 
     checkEventList();
-  }, [open, getEventableState, syncEventStatusWithDB]);
+  }, [open, getEventableState, syncEventStatusWithDB, data?.user?.email]);
 
   return null;
 }
