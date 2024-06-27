@@ -30,14 +30,59 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   min-height: 200px;
   justify-content: space-between;
 }
 
 .manualTitle {
-  font-weight: 700;
-  font-size: large;
+  font-weight: 800;
+  font-size: larger;
+  margin-bottom: 8px;
+}
+
+.manualDetailWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  line-height: 20px;
+}
+
+.highLight {
+  font-weight: 800;
+  color: #145a35;
+}
+.hideButton {
+  opacity: 0.7;
+  background: none;
+  border: none;
+  height: 16px;
+}
+
+.hideButton:hover {
+  opacity: 1;
+  font-weight: 800;
+}
+
+.naviWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.naviButton {
+  color: #4caf50; /* 버튼 배경색 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px; /* 폰트 크기 */
+  line-height: 16px;
+}
+
+.naviButton:hover {
+  color: #145a35; /* 호버 시 배경색 */
+  font-weight: 800;
 }
 
 .EventListHtmlWrapper {

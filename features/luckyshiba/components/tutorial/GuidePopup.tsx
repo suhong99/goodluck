@@ -6,7 +6,6 @@ import { MANUAL_SKIP } from '@/shared/contants';
 
 export default function GuidePopUp() {
   const [step, setStep] = useState<number>(0);
-
   const stepChanger = (direction: 'before' | 'after') => {
     const lastStep = 1;
     if (direction === 'before') {
@@ -30,13 +29,16 @@ export default function GuidePopUp() {
   return (
     <div className={styles.manualWrapper}>
       <div className={styles.manualTitle}>게임 시작 메뉴얼</div>
-      <div>
+      <div className={styles.manualDetailWrapper}>
         {step === 0 && <Tutorial1 />}
         {step === 1 && <Tutorial2 />}
       </div>
-      <button onClick={handleDontShowAgain}>다시 보지 않기</button>
-      <div>
+      <button className={styles.hideButton} onClick={handleDontShowAgain}>
+        다시 보지 않기
+      </button>
+      <div className={styles.naviWrapper}>
         <button
+          className={styles.naviButton}
           onClick={() => {
             stepChanger('before');
           }}
@@ -44,7 +46,9 @@ export default function GuidePopUp() {
           이전
         </button>
         {step + 1 + '/' + 2}
+
         <button
+          className={styles.naviButton}
           onClick={() => {
             stepChanger('after');
           }}

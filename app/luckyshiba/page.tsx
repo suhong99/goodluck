@@ -24,16 +24,16 @@ export default function LuckyShiba() {
     <SessionProvider>
       <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
         <Physics gravity={[gravity.x, gravity.y, gravity.z]}>
-          <Debug>
-            <ambientLight />
-            <directionalLight position={[0, 5, 5]} />
-            <Shiba />
-            <Walls />
-            <Background />
-            <DrawCall />
-            <StatsGl />
-            <TutorialOpener />
-          </Debug>
+          {/* <Debug> */}
+          <ambientLight />
+          <directionalLight position={[0, 5, 5]} />
+          <Shiba />
+          <Walls />
+          <Background />
+          <DrawCall />
+          <StatsGl />
+          <TutorialOpener />
+          {/* </Debug> */}
         </Physics>
       </CanvasLayout>
     </SessionProvider>
