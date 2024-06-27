@@ -20,6 +20,7 @@ import { useModalContext } from '@/shared/components/portal/ModalContext';
 import { checkNewEvent } from '@/remote/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { useShowingProcessStore } from '@/store/showingProcess';
+import { useSession } from 'next-auth/react';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -32,16 +33,10 @@ type GLTFResult = GLTF & {
   };
 };
 
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
->;
-
 useGLTF.preload('/models/shiba.glb');
 
 export function Shiba() {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
-  // const { pivot } = useFollowCam();
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
   const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
@@ -56,6 +51,7 @@ export function Shiba() {
   const front = 0.6;
   const mass = 100;
   const { open } = useModalContext();
+  const { data } = useSession();
 
   const chassisBodyArgs = [width, height, front * 2];
   const { eventList, setEventStatus } = useShibaEventStore();
@@ -116,7 +112,6 @@ export function Shiba() {
     }
 
     //TODO : 이벤트추가 함수분리예정
-    // console.log(x, y, z);
 
     if (Math.abs(5.5 - x) < 1 && Math.abs(-2.8 - z) < 1 && y < 2) {
       setIsVisible(true);
@@ -129,14 +124,14 @@ export function Shiba() {
     const occurableEvents = SHIBA_EVENT[location];
     const selectedEvent = getRandomEvent(occurableEvents);
     open({ type: 'shiba', event: selectedEvent }, getEventableState);
-
+    const userId = data?.user?.email;
     if (!eventList[selectedEvent.type]) {
       setEventStatus(selectedEvent.type);
-      //TODO: 아이디
-      checkNewEvent({
-        id: 'bt01063767006@gmail.com',
-        type: selectedEvent.type,
-      });
+      userId &&
+        checkNewEvent({
+          id: userId,
+          type: selectedEvent.type,
+        });
     }
   };
 
