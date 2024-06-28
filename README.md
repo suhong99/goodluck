@@ -1,6 +1,6 @@
 
 
-# 3d웹 행운 프로젝트
+# 3d웹 행운 프로젝트 To Be luckier
 배포(vercel) : https://goodluck-steel.vercel.app/  
 노션 : https://best-athlete-e88.notion.site/To-Be-luckier-9b31bcbf243848249a9171c431c9af20
 
