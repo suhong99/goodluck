@@ -4,7 +4,7 @@
 배포(vercel) : https://goodluck-steel.vercel.app/  
 노션 : https://best-athlete-e88.notion.site/To-Be-luckier-9b31bcbf243848249a9171c431c9af20
 
-## 👉🏻 페이지 소개
+##  페이지 소개
 ### 강화하기
 - 모의 강화를 통해서 액땜을 할 수 있는 사이트  
 ![image](https://github.com/suhong99/goodluck/assets/120103909/af7065cd-a746-482f-8be4-e3ad985069ed)
@@ -23,7 +23,23 @@
 -  강화 내역 및 시바 획득물품 확인   
 ![image](https://github.com/suhong99/goodluck/assets/120103909/f28874bf-e3d5-43da-83bf-32ae10a63b59)
 
-## ⚙ 기술 스택
+## [기능 구현 및 트러블 슈팅](https://www.notion.so/71bf8c2fc4d343de8ddcb8b2abaa2223)
+#### [시바 이동 로직 설계 및 비교](https://ungumungum.tistory.com/125)
+position, velocity, applyForce, wheel 의 4가지 방법을 직접 도입 및 비교하여 position 방식으로 이동 구현
+
+### [웹 폰트 최적화](https://ungumungum.tistory.com/124)
+필요한 글리프만 추출하여 16108Kb → 22Kb로 최적화
+
+#### 유틸리티 타입을 활용한 타입 추출
+```typescript
+type EventType<T> = T extends { type: infer U } ? U : never;
+
+type ShibaEventType = {
+  [K in keyof typeof SHIBA_EVENT]: EventType<(typeof SHIBA_EVENT)[K][number]>;
+}[keyof typeof SHIBA_EVENT];
+```
+
+##  기술 스택
 <div>
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
