@@ -4,7 +4,7 @@
 배포(vercel) : https://goodluck-steel.vercel.app/  
 노션 : https://best-athlete-e88.notion.site/To-Be-luckier-9b31bcbf243848249a9171c431c9af20
 
-## 페이지 소개
+## 👉🏻 페이지 소개
 ### 강화하기
 - 모의 강화를 통해서 액땜을 할 수 있는 사이트  
 ![image](https://github.com/suhong99/goodluck/assets/120103909/af7065cd-a746-482f-8be4-e3ad985069ed)
@@ -22,10 +22,19 @@
 -  강화 내역 및 시바 획득물품 확인   
 ![image](https://github.com/suhong99/goodluck/assets/120103909/f28874bf-e3d5-43da-83bf-32ae10a63b59)
 
+## 🛠 프로젝트 아키텍처
+
+## ⚙ 기술 스택
+### ✔ Frond-end
+<div>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
 
 
 
 
-## 기타 이미지출처
+## 👉🏻 기타 이미지출처
 
 https://pxhere.com/
