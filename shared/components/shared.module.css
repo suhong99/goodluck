@@ -1,0 +1,42 @@
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(2, 22, 49);
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  z-index: 700;
+}
+
+.progressBarContainer {
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progressBar {
+  width: 0;
+  height: 20px;
+  background-color: white;
+  animation: progressAnimation 3s forwards;
+}
+
+.loadingText {
+  margin-top: 10px;
+}
+
+@keyframes progressAnimation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
