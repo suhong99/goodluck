@@ -12,7 +12,8 @@
 ### 운좋은 시바
 - 시바를 산책 시켜 행복한 일을 만들어 주기  
 - 획득 물품 목록은 비콘 및 마이페이지에서 확인 가능하며, 로그인 시 DB에 데이터 저장  
-![image](https://github.com/suhong99/goodluck/assets/120103909/0cd0d486-730e-453a-a135-3ad6336b9834)
+![To-Be-luckier-Chrome-2024-06-28-23-10-10](https://github.com/suhong99/goodluck/assets/120103909/80fe2410-4915-49a1-ab2a-0944bb507fa6)
+
 
 ### 헤더
 - 네비바 및 로그인 버튼 (로그인 시 유저메뉴로 바뀌며 팝업창으로 마이페이지 이동 및 비로그인)  
