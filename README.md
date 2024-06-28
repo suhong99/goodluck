@@ -22,18 +22,38 @@
 -  강화 내역 및 시바 획득물품 확인   
 ![image](https://github.com/suhong99/goodluck/assets/120103909/f28874bf-e3d5-43da-83bf-32ae10a63b59)
 
-## 🛠 프로젝트 아키텍처
-
 ## ⚙ 기술 스택
 ### ✔ Frond-end
 <div>
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+  <br/>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white">
+<img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white">
+<img src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase"/>
+<img src="https://img.shields.io/badge/zustand-000000?style=for-the-badge&logoColor=white">
+  <br/>
+<img src="https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white">
+<img src="https://img.shields.io/badge/R3F-000000?style=for-the-badge&logoColor=white">
+<img src="https://img.shields.io/badge/react/cannon-000000?style=for-the-badge&logoColor=white">
+</div>
 
-
-
+## 파이어베이스 data 구조
+```markdown
+USERS
+└── userId (Document)
+├── ENFORCEMENT (Sub-Collection)
+│ └── id (Document)
+│ ├── date(fieldA): TimeStamp
+│ ├── percent(fieldB): number
+│ └── status(fieldC): string
+└── SHIBA (Sub-Collection)
+└── id (Document)
+│ ├── date(fieldA): TimeStamp
+└── type(fieldB): string
+```
 
 ## 👉🏻 기타 이미지출처
 
