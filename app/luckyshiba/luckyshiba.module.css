@@ -41,7 +41,7 @@
   margin-bottom: 8px;
 }
 
-.manualDetailWrapper {
+.manualContents {
   display: flex;
   flex-direction: column;
   height: 150px;

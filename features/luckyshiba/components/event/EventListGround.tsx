@@ -3,20 +3,11 @@ import { motion } from 'framer-motion-3d';
 import EventListHtml from './EventListHtml';
 import { Text3D } from '@react-three/drei';
 import { TITLE_3D } from '@/shared/contants/color';
+import { fontStyle } from '@/shared/contants';
 
 export default function EventListGround() {
   const color = '#e5e5a6';
   const { isVisible } = useShowingProcessStore();
-
-  const fontUrl = '/font/ONE_Mobile_POP_Regular.json';
-
-  const fontStyle = {
-    font: fontUrl,
-    size: 0.2,
-    letterSpacing: 0.01,
-    height: 0.02,
-    fontSize: 2,
-  };
 
   return (
     <group position={[5.5, 0, -2.8]}>

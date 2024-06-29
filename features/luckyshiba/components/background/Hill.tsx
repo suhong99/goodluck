@@ -10,7 +10,7 @@ export default function Hill({
   nodes: ShibaBGNodes;
   materials: ShibaBGMaterials;
 }) {
-  const [hillBody, _] = useCompoundBody(
+  useCompoundBody(
     () => ({
       mass: 0,
       collisionFilterGroup: 3,
