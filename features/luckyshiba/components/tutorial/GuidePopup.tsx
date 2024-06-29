@@ -1,61 +1,19 @@
-import { useState } from 'react';
-import Tutorial1 from './Tutorial1';
-import Tutorial2 from './Tutorial2';
 import styles from '@/app/luckyshiba/luckyshiba.module.css';
-import { MANUAL_SKIP } from '@/shared/contants';
+import { tutorials } from './content';
+import { useStep } from './hook/useStep';
+import HideButton from './control/HideButton';
+import Navigation from './control/Navigation';
 
 export default function GuidePopUp() {
-  const [step, setStep] = useState<number>(0);
-  const stepChanger = (direction: 'before' | 'after') => {
-    const lastStep = 1;
-    if (direction === 'before') {
-      if (step > 0) {
-        setStep(step - 1);
-      }
-    } else {
-      if (step < lastStep) {
-        setStep(step + 1);
-      }
-    }
-  };
-
-  const handleDontShowAgain = () => {
-    localStorage.setItem(MANUAL_SKIP, 'true');
-
-    const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-    document.dispatchEvent(escEvent);
-  };
+  const lastStep = tutorials.length;
+  const [step, stepChanger] = useStep(lastStep);
 
   return (
     <div className={styles.manualWrapper}>
       <div className={styles.manualTitle}>게임 시작 메뉴얼</div>
-      <div className={styles.manualDetailWrapper}>
-        {step === 0 && <Tutorial1 />}
-        {step === 1 && <Tutorial2 />}
-      </div>
-      <button className={styles.hideButton} onClick={handleDontShowAgain}>
-        다시 보지 않기
-      </button>
-      <div className={styles.naviWrapper}>
-        <button
-          className={styles.naviButton}
-          onClick={() => {
-            stepChanger('before');
-          }}
-        >
-          이전
-        </button>
-        {step + 1 + '/' + 2}
-
-        <button
-          className={styles.naviButton}
-          onClick={() => {
-            stepChanger('after');
-          }}
-        >
-          다음
-        </button>
-      </div>
+      <div className={styles.manualContents}>{tutorials[step]}</div>
+      <HideButton />
+      <Navigation step={step} stepChanger={stepChanger} totalSteps={lastStep} />
     </div>
   );
 }

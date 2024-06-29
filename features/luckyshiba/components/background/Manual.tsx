@@ -1,16 +1,7 @@
+import { fontStyle } from '@/shared/contants';
 import { SUBTEXT_3D, TITLE_3D } from '@/shared/contants/color';
 import { Text3D } from '@react-three/drei';
 export default function Manual() {
-  const fontUrl = '/font/ONE_Mobile_POP_Regular.json';
-
-  const fontStyle = {
-    font: fontUrl,
-    size: 0.2,
-    letterSpacing: 0.01,
-    height: 0.02,
-    fontSize: 2,
-  };
-
   return (
     <group position={[-0.3, 0, 0]}>
       <group position={[-5, 0.5, -1]} rotation={[0, Math.PI / 2, 0]}>

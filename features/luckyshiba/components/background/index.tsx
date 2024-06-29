@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/baker-and-the-bridge-da3f6e7b85ed44b7aa8
 Title: Baker and the Bridge
 */
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import House from './House';
@@ -21,11 +21,6 @@ type GLTFResult = GLTF & {
   nodes: ShibaBGNodes;
   materials: ShibaBGMaterials;
 };
-
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
->;
 
 export function Background() {
   const { nodes, materials } = useGLTF('/models/background.glb') as GLTFResult;
