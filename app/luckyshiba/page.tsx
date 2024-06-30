@@ -25,8 +25,9 @@ export default function LuckyShiba() {
               <Shiba />
               <Walls />
               <Background />
-              {/* <DrawCall />
-          <StatsGl /> */}
+              {/* <DrawCall /> */}
+              {/* <StatsGl /> */}
+
               <TutorialOpener />
               {/* </Debug> */}
             </Physics>
