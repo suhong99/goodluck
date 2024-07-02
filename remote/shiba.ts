@@ -9,6 +9,7 @@ import {
 } from 'firebase/firestore';
 import { store } from './firebase';
 import { COLLECTIONS } from '@/shared/contants';
+import { ShibaRecord } from '@/models/shiba';
 
 export const checkNewEvent = async ({
   id,
@@ -36,7 +37,7 @@ export const checkNewEvent = async ({
       console.log(`${type} 이벤트를 성공적으로 추가했습니다.`);
     }
   } catch (error) {
-    console.error(`이벤트 타입 추가 중 오류 발생:`, error);
+    console.error(`획득 물품 추가 중 오류 발생:`, error);
   }
 };
 
@@ -46,17 +47,14 @@ export const eventCheckList = async (id: string) => {
     const shibaQuery = query(collection(userRef, COLLECTIONS.SHIBA));
 
     const snapshot = await getDocs(shibaQuery);
-
-    const result: { type: string; date: Timestamp }[] = [];
-    snapshot.forEach((doc) => {
-      const { type, date } = doc.data();
-      if (type && date) {
-        result.push({ type, date });
-      }
-    });
+    const result = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...(doc.data() as Omit<ShibaRecord, 'id'>),
+    }));
 
     return result;
   } catch (error) {
-    console.error(`이벤트 타입 목록 조회 중 오류 발생:`, error);
+    console.error(`이벤트 목록 조회 중 오류 발생:`, error);
+    throw error;
   }
 };
