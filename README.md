@@ -23,12 +23,13 @@
 -  강화 내역 및 시바 획득물품 확인   
 ![image](https://github.com/suhong99/goodluck/assets/120103909/f28874bf-e3d5-43da-83bf-32ae10a63b59)
 
-## [기능 구현 및 트러블 슈팅](https://www.notion.so/71bf8c2fc4d343de8ddcb8b2abaa2223)
-#### [시바 이동 로직 설계 및 비교](https://ungumungum.tistory.com/125)
-position, velocity, applyForce, wheel 의 4가지 방법을 직접 도입 및 비교하여 position 방식으로 이동 구현
+## 기능 구현 및 트러블 슈팅
+[노션링크](https://www.notion.so/71bf8c2fc4d343de8ddcb8b2abaa2223)
+#### 시바 이동 로직 설계 및 비교
+[position, velocity, applyForce, wheel 의 4가지 방법을 직접 도입 및 비교하여 position 방식으로 이동 구현](https://ungumungum.tistory.com/125)
 
-### [웹 폰트 최적화](https://ungumungum.tistory.com/124)
-필요한 글리프만 추출하여 16108Kb → 22Kb로 최적화
+### 웹 폰트 최적화
+[필요한 글리프만 추출하여 16108Kb → 22Kb로 최적화](https://ungumungum.tistory.com/124)
 
 #### 유틸리티 타입을 활용한 타입 추출
 ```typescript
