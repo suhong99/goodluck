@@ -4,57 +4,21 @@ import { Html } from '@react-three/drei';
 import style from '@/app/(enforcement)/enforcement.module.css';
 
 import RecordList from './RecordList';
-import { addEnforcementRecord } from '@/remote/enforcement';
-import { useSession } from 'next-auth/react';
-import React, { useState } from 'react';
-import { useEnforceStore } from '@/store/enforcecement';
-import { isValidPattern } from '@/shared/utils/checker';
-import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
+import React from 'react';
+
+import RecordModalBtn from './RecordModalBtn';
+import { useValidInput } from '../hooks/useValidInput';
+import { useEnforce } from '../hooks/useEnforce';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
 
 export default function EnforceHtml() {
-  const { status, update } = useEnforceStore();
-  const [percent, setPercent] = useState<string>('');
-  const [result, setResult] = useState('강화를 시도해주세요');
+  const [percent, setValidInput] = useValidInput();
+  const { result, onEnforce } = useEnforce(Number(percent));
 
+  // 컴퍼넌트 분리시 인지 못함 RecordModalBtn
   const { open } = useModalContext();
-
   const openRecords = () => {
     open({ type: 'enforce' });
-  };
-
-  const { data } = useSession();
-
-  const setValidInput = (value: string) => {
-    if (!isValidPattern(value, FLOAT_POINT_TWO)) return;
-
-    if (Number(value) < 0) {
-      return setPercent('0.00');
-    }
-    if (Number(value) > 100) {
-      return setPercent('100.00');
-    }
-    setPercent(value);
-  };
-
-  const onEnforce = () => {
-    const random = Math.random();
-    const isSuccess = random * 100 < Number(percent) ? true : false;
-    if (isSuccess) {
-      setResult(`${percent}퍼의 확률 성공`);
-      update({ percent: Number(percent), status: '성공' });
-    } else {
-      setResult(`${percent ?? 0}퍼의 확률 실패`);
-      update({ percent: Number(percent), status: '실패' });
-    }
-
-    const userId = data?.user?.email;
-    userId &&
-      addEnforcementRecord({
-        id: userId,
-        percent: Number(percent),
-        status: isSuccess ? '성공' : '실패',
-      });
   };
 
   return (
@@ -77,12 +41,7 @@ export default function EnforceHtml() {
         </div>
         <div className={style.row}>
           <div>{result}</div>
-          <button
-            className={`${style.button} ${style.mobile}`}
-            onClick={openRecords}
-          >
-            데이터 보기
-          </button>
+          <RecordModalBtn openRecords={openRecords} />
         </div>
         <RecordList />
       </div>

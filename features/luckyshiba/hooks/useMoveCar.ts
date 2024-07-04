@@ -1,10 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useInput } from './useInput';
-import {
-  PublicApi,
-  RaycastVehiclePublicApi,
-  useRaycastVehicle,
-} from '@react-three/cannon';
+import { PublicApi, useRaycastVehicle } from '@react-three/cannon';
 import { Group, Object3DEventMap, Quaternion, Vector3 } from 'three';
 import { useWheels } from './useWheels';
 
