@@ -8,25 +8,34 @@ export default function RecordList() {
   const { records } = useEnforceStore();
   const firstTenRecords = records.slice(0, 10);
   const lastTenRecords = records.slice(10);
+
   return (
     <div className={style.recordList}>
-      <div className={style.subRecordList}>
-        {firstTenRecords.map(({ id, percent, status }) => (
-          <div
-            key={id}
-            className={status === '성공' ? style.success : style.failure}
-          >
-            {id}회 {percent}% {status}
-          </div>
-        ))}
-      </div>
-      <div className={style.subRecordList}>
-        {lastTenRecords.map(({ id, percent, status }) => (
-          <div key={id}>
-            {id}회 {percent}% {status}
-          </div>
-        ))}
-      </div>
+      <RendorRecords recordList={firstTenRecords} />
+      <RendorRecords recordList={lastTenRecords} />
+    </div>
+  );
+}
+
+function RendorRecords({
+  recordList,
+}: {
+  recordList: {
+    id: number;
+    percent: number;
+    status: '성공' | '실패';
+  }[];
+}) {
+  return (
+    <div className={style.subRecordList}>
+      {recordList.map(({ id, percent, status }) => (
+        <div
+          key={id}
+          className={status === '성공' ? style.success : style.failure}
+        >
+          {id}회 {percent}% {status}
+        </div>
+      ))}
     </div>
   );
 }
