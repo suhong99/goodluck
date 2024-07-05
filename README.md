@@ -67,7 +67,8 @@ type ShibaEventType = {
 ┣ 📂features                : 페이지 별로 코드를 관리
 ┃ ┣ 📂enforcement           
 ┃ ┃ ┣ 📂components          
-┃ ┃ ┣ 📂hooks             
+┃ ┃ ┣ 📂hooks
+┃ ┣ 📂 ... 
 ┣ 📂public                  : asset 관리
 ┃ ┣ 📂font
 ┃ ┣ 📂images
