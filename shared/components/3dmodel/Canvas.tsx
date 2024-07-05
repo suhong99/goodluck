@@ -16,12 +16,12 @@ export default function CanvasLayout({
 }) {
   return (
     <>
-      <ModalContextProvider>
-        <Canvas camera={camera ?? { position: [0, 0, 5], fov: 45 }}>
-          <color attach="background" args={[`${color} 100%)`]} />
-          {children}
-        </Canvas>
-      </ModalContextProvider>
+      {/* <ModalContextProvider> */}
+      <Canvas camera={camera ?? { position: [0, 0, 5], fov: 45 }}>
+        <color attach="background" args={[`${color} 100%)`]} />
+        {children}
+      </Canvas>
+      {/* </ModalContextProvider> */}
     </>
   );
 }
