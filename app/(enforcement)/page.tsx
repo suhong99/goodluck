@@ -4,7 +4,7 @@ import EnforceScene from '@/features/enforcement/EnforceScene';
 import EnforceHtml from '@/features/enforcement/components/EnforceHtml';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import Loading from '@/shared/components/Loading';
-import { color } from '@/shared/contants/color';
+import { color } from '@/shared/constants/color';
 import { OrbitControls } from '@react-three/drei';
 import { SessionProvider } from 'next-auth/react';
 import { Suspense } from 'react';

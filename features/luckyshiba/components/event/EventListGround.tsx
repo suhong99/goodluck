@@ -2,8 +2,8 @@ import { useShowingProcessStore } from '@/store/showingProcess';
 import { motion } from 'framer-motion-3d';
 import EventListHtml from './EventListHtml';
 import { Text3D } from '@react-three/drei';
-import { TITLE_3D } from '@/shared/contants/color';
-import { fontStyle } from '@/shared/contants';
+import { TITLE_3D } from '@/shared/constants/color';
+import { fontStyle } from '@/shared/constants';
 
 export default function EventListGround() {
   const color = '#e5e5a6';

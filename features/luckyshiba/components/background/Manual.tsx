@@ -1,5 +1,5 @@
-import { fontStyle } from '@/shared/contants';
-import { SUBTEXT_3D, TITLE_3D } from '@/shared/contants/color';
+import { fontStyle } from '@/shared/constants';
+import { SUBTEXT_3D, TITLE_3D } from '@/shared/constants/color';
 import { Text3D } from '@react-three/drei';
 export default function Manual() {
   return (

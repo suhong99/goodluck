@@ -1,4 +1,4 @@
-import { SHIBA_EVENT, ShibaEventType } from '@/shared/contants/shibaEvent';
+import { SHIBA_EVENT, ShibaEventType } from '@/shared/constants/shibaEvent';
 
 import { create } from 'zustand';
 

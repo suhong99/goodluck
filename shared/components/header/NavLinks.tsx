@@ -1,6 +1,6 @@
 'use client';
 
-import { NAVIGATION_LIST } from '@/shared/contants';
+import { NAVIGATION_LIST } from '@/shared/constants';
 import Link from 'next/link';
 import style from './header.module.css';
 import { usePathname } from 'next/navigation';

@@ -1,6 +1,6 @@
 import { eventCheckList } from '@/remote/shiba';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
-import { MANUAL_SKIP } from '@/shared/contants';
+import { MANUAL_SKIP } from '@/shared/constants';
 import { useShibaStore } from '@/store/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { useEffect } from 'react';
