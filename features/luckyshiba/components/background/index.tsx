@@ -12,7 +12,7 @@ import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import House from './House';
 import Bridge from './Bridge';
-import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/contants/model';
+import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/constants/model';
 import Hill from './Hill';
 import Manual from './Manual';
 import EventListGround from '../event/EventListGround';

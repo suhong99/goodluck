@@ -10,12 +10,12 @@ import { useFrame } from '@react-three/fiber';
 import { useMovePosition } from '../../hooks/useMovePosition';
 import { useInput } from '../../hooks/useInput';
 import { useShibaStore } from '@/store/shiba';
-import { ShibaLocation } from '@/shared/contants/model';
+import { ShibaLocation } from '@/shared/constants/model';
 import {
   EventResultProps,
   SHIBA_EVENT,
   ShibaEvent,
-} from '@/shared/contants/shibaEvent';
+} from '@/shared/constants/shibaEvent';
 import { useModalContext } from '@/shared/components/portal/ModalContext';
 import { checkNewEvent } from '@/remote/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';

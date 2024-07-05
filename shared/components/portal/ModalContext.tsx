@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom';
 import Modal from './Modal';
 import { MobileRecordList } from '@/features/enforcement/components/RecordList';
 import EventResult from '@/features/luckyshiba/components/event/EventResult';
-import { EventResultProps } from '@/shared/contants/shibaEvent';
+import { EventResultProps } from '@/shared/constants/shibaEvent';
 import GuidePopUp from '@/features/luckyshiba/components/tutorial/GuidePopup';
 
 type ModalProps = Omit<ComponentProps<typeof Modal>, 'children'>;

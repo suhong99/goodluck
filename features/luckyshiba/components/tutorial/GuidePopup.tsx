@@ -1,6 +1,6 @@
 import styles from '@/app/luckyshiba/luckyshiba.module.css';
 import { tutorials } from './content';
-import { useStep } from './hook/useStep';
+import { useStep } from './hooks/useStep';
 import HideButton from './control/HideButton';
 import Navigation from './control/Navigation';
 

@@ -8,7 +8,7 @@ import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import Loading from '@/shared/components/Loading';
 import { ModalContextProvider } from '@/shared/components/portal/ModalContext';
 
-import { color } from '@/shared/contants/color';
+import { color } from '@/shared/constants/color';
 import { Physics } from '@react-three/cannon';
 import { SessionProvider } from 'next-auth/react';
 import { Suspense } from 'react';

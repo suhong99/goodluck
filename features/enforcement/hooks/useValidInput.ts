@@ -1,4 +1,4 @@
-import { FLOAT_POINT_TWO } from '@/shared/contants/reg';
+import { FLOAT_POINT_TWO } from '@/shared/constants/reg';
 import { isValidPattern } from '@/shared/utils/checker';
 import { useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { EventResultProps } from '@/shared/contants/shibaEvent';
+import { EventResultProps } from '@/shared/constants/shibaEvent';
 import Image from 'next/image';
 import styles from '@/app/luckyshiba/luckyshiba.module.css';
 

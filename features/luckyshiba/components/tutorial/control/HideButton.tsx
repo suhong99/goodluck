@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '@/app/luckyshiba/luckyshiba.module.css';
-import { MANUAL_SKIP } from '@/shared/contants';
+import { MANUAL_SKIP } from '@/shared/constants';
 import { closeModalByEvent } from '@/shared/components/portal/util';
 
 export default function HideButton() {

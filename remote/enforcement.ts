@@ -8,8 +8,8 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { store } from '@/remote/firebase';
-import { COLLECTIONS } from '@/shared/contants';
-import { Enforcement } from '@/models/enforcement';
+import { COLLECTIONS } from '@/shared/constants';
+import { Enforcement } from '@/remote/models/enforcement';
 
 export const addEnforcementRecord = async ({
   id,

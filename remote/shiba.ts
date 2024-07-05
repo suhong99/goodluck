@@ -1,15 +1,8 @@
-import { ShibaEventType } from '@/shared/contants/shibaEvent';
-import {
-  Timestamp,
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-} from 'firebase/firestore';
+import { ShibaEventType } from '@/shared/constants/shibaEvent';
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { store } from './firebase';
-import { COLLECTIONS } from '@/shared/contants';
-import { ShibaRecord } from '@/models/shiba';
+import { COLLECTIONS } from '@/shared/constants';
+import { ShibaRecord } from '@/remote/models/shiba';
 
 export const checkNewEvent = async ({
   id,
