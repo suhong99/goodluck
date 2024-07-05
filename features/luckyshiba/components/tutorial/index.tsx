@@ -5,6 +5,7 @@ import { useShibaStore } from '@/store/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+
 export default function TutorialOpener() {
   const { open } = useModalContext();
   const { getEventableState } = useShibaStore();
