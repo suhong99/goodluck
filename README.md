@@ -26,16 +26,16 @@
 ## 기능 구현 및 트러블 슈팅
 [노션링크](https://www.notion.so/71bf8c2fc4d343de8ddcb8b2abaa2223)
 
-#### drei/HTML 태그와 React.ContextApi의 호완성 문제 디버깅
+### drei/HTML 태그와 React.ContextApi의 호완성 문제 디버깅
 [drei의 HTML컴퍼넌트의 구현 원리에 의한 ContextApi와의 호완 문제 디버깅](https://ungumungum.tistory.com/129)
 
-#### 시바 이동 로직 설계 및 비교
+### 시바 이동 로직 설계 및 비교
 [position, velocity, applyForce, wheel 의 4가지 방법을 직접 도입 및 비교하여 position 방식으로 이동 구현](https://ungumungum.tistory.com/125)
 
-#### 웹 폰트 최적화
+### 웹 폰트 최적화
 [필요한 글리프만 추출하여 16108Kb → 22Kb로 최적화](https://ungumungum.tistory.com/124)
 
-#### 유틸리티 타입을 활용한 타입 추출
+### 유틸리티 타입을 활용한 타입 추출
 ```typescript
 type EventType<T> = T extends { type: infer U } ? U : never;
 
