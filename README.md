@@ -61,6 +61,31 @@ type ShibaEventType = {
 <img src="https://img.shields.io/badge/react/cannon-000000?style=for-the-badge&logoColor=white">
 </div>
 
+## 폴더 구조
+```md
+┣ 📂app                     : Next.js 앱 라우터에 의해 관리되고 라우팅 구조를 정의하는 코드
+┣ 📂features                : 페이지 별로 코드를 관리
+┃ ┣ 📂enforcement           
+┃ ┃ ┣ 📂components          
+┃ ┃ ┣ 📂hooks             
+┣ 📂public                  : asset 관리
+┃ ┣ 📂font
+┃ ┣ 📂images
+┃ ┣ 📂models
+┣ 📂remote                  : Firebase와 API 통신을 위한 코드
+┃ ┣ 📂models                : Firebase와 API 통신에 필요한 데이터 모델 정의
+┣ 📂shared                  : 공유되는 코드
+┃ ┣ 📂components
+┃ ┃ ┣ 📂3dmodel
+┃ ┃ ┣ 📂header
+┃ ┃ ┣ 📂portal
+┃ ┣ 📂constants            
+┃ ┣ 📂hooks                 
+┃ ┣ 📂styles
+┃ ┗ 📂utils
+┗ 📂store                   : 전역 변수 상태 관리
+```
+
 ## 파이어베이스 data 구조
 ```markdown
 USERS
