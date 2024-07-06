@@ -1,7 +1,7 @@
 'use client';
 
-import EnforceScene from '@/features/enforcement/EnforceScene';
 import EnforceHtml from '@/features/enforcement/components/EnforceHtml';
+import EnforceScene from '@/features/enforcement/components/EnforceScene';
 import CanvasLayout from '@/shared/components/3dmodel/Canvas';
 import Loading from '@/shared/components/Loading';
 import { color } from '@/shared/constants/color';

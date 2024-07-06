@@ -1,7 +1,7 @@
 import { getAndCleanupEnforceRecords } from '@/remote/enforcement';
 import { convertTimestampToKoreanDate } from '@/shared/utils/date';
 import styles from '@/app/mypage/mypage.module.css';
-import { RecordProps } from './constants/model';
+import { RecordProps } from '../constants/model';
 import { Timestamp } from 'firebase/firestore';
 import RecordSection from './RecordSection';
 

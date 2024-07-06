@@ -1,7 +1,8 @@
 import { auth } from '@/auth';
-import EnforceRecord from '@/features/mypage/EnforceRecord';
-import ShibaRecord from '@/features/mypage/ShibaRecord';
+
 import styles from '@/app/mypage/mypage.module.css';
+import EnforceRecord from '@/features/mypage/components/EnforceRecord';
+import ShibaRecord from '@/features/mypage/components/ShibaRecord';
 
 const records = [
   { type: 'ENFORCE', component: EnforceRecord },
