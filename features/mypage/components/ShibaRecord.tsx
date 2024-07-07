@@ -2,9 +2,9 @@ import { eventCheckList } from '@/remote/shiba';
 import { convertTimestampToKoreanDate } from '@/shared/utils/date';
 import styles from '@/app/mypage/mypage.module.css';
 import { SHIBA_EVENT } from '@/shared/constants/shibaEvent';
-import { RecordProps } from './constants/model';
 import { Timestamp } from 'firebase/firestore';
 import RecordSection from './RecordSection';
+import { RecordProps } from '../constants/model';
 
 interface ShibaRecordContent {
   id: string;
