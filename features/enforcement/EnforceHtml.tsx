@@ -1,15 +1,14 @@
 'use client';
 
+import React from 'react';
 import { Html } from '@react-three/drei';
 import style from '@/app/(enforcement)/enforcement.module.css';
 
-import RecordList from './RecordList';
-import React from 'react';
-
-import RecordModalBtn from './RecordModalBtn';
-import { useValidInput } from '../hooks/useValidInput';
-import { useEnforce } from '../hooks/useEnforce';
 import { ModalContextProvider } from '@/shared/components/portal/ModalContext';
+import RecordModalBtn from './components/RecordModalBtn';
+import RecordList from './components/RecordList';
+import { useValidInput } from './hooks/useValidInput';
+import { useEnforce } from './hooks/useEnforce';
 
 export default function EnforceHtml() {
   const [percent, setValidInput] = useValidInput();

@@ -1,41 +1,22 @@
-'use client';
-
-import { Background } from '@/features/luckyshiba/components/background';
-import Walls from '@/features/luckyshiba/components/background/Walls';
-import { Shiba } from '@/features/luckyshiba/components/shiba/Shiba';
-import TutorialOpener from '@/features/luckyshiba/components/tutorial';
-import CanvasLayout from '@/shared/components/3dmodel/Canvas';
+import LuckyShibaCanvas from '@/features/luckyshiba/LuckyShibaCanvas';
 import Loading from '@/shared/components/Loading';
-import { ModalContextProvider } from '@/shared/components/portal/ModalContext';
 
-import { color } from '@/shared/constants/color';
-import { Physics } from '@react-three/cannon';
-import { SessionProvider } from 'next-auth/react';
+import { Metadata } from 'next';
 import { Suspense } from 'react';
+
+export const metadata: Metadata = {
+  title: '운좋은 시바',
+  openGraph: {
+    images:
+      'https://github.com/suhong99/goodluck/assets/120103909/8afdafac-fe9b-4638-a4fd-48a35454f3be',
+  },
+};
 
 export default function LuckyShiba() {
   return (
     <div className="wrapper_3d">
       <Suspense fallback={<Loading />}>
-        <SessionProvider>
-          <ModalContextProvider>
-            <CanvasLayout color={color.bg} camera={{ position: [0, 2, 4] }}>
-              <Physics gravity={[0, -9.8, 0]}>
-                {/* <Debug> */}
-                <ambientLight />
-                <directionalLight position={[0, 5, 5]} />
-                <Shiba />
-                <Walls />
-                <Background />
-                {/* <DrawCall /> */}
-                {/* <StatsGl /> */}
-
-                <TutorialOpener />
-                {/* </Debug> */}
-              </Physics>
-            </CanvasLayout>
-          </ModalContextProvider>
-        </SessionProvider>
+        <LuckyShibaCanvas />
       </Suspense>
     </div>
   );
