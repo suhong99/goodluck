@@ -22,7 +22,7 @@ export default function NotFound() {
             }}
           >
             <Image
-              alt={label}
+              alt={label + ' 예시 이미지'}
               width={400}
               height={300}
               src={'/images/' + img}
