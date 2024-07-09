@@ -13,10 +13,9 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: rgb(2, 22, 49);
 }
 
-.wrapper_3d {
+.WH100 {
   width: 100%;
   height: 100%;
 }
@@ -26,4 +25,26 @@ body {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.notfound_wrapper {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  overflow-y: scroll;
+}
+
+.notfound_container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  padding-bottom: 100px;
+}
+
+@media (max-width: 1000px) {
+  .notfound_container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

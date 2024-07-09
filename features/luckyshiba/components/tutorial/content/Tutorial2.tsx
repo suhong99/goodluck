@@ -1,4 +1,4 @@
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 
 export default function Tutorial2() {
   return (

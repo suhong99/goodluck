@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function LuckyShiba() {
   return (
-    <div className="wrapper_3d">
+    <div className="WH100">
       <Suspense fallback={<Loading />}>
         <LuckyShibaCanvas />
       </Suspense>

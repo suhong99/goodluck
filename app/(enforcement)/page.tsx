@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 export default function Home({}) {
   return (
-    <div className="wrapper_3d">
+    <div className="WH100">
       <Suspense fallback={<Loading />}>
         <EnforceCanvas />
       </Suspense>

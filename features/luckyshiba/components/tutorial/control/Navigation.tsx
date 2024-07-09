@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 
 interface NavigationProps {
   step: number;

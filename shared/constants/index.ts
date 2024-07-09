@@ -1,6 +1,6 @@
 export const NAVIGATION_LIST = [
-  { label: '강화하기', url: '/' },
-  { label: '운좋은 시바', url: '/luckyshiba' },
+  { label: '강화하기', url: '/', img: '강화하기.png' },
+  { label: '운좋은 시바', url: '/luckyshiba', img: '시바.png' },
 ];
 
 export const COLLECTIONS = {

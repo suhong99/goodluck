@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 import { MANUAL_SKIP } from '@/shared/constants';
 import { closeModalByEvent } from '@/shared/components/portal/util';
 

@@ -6,7 +6,6 @@
   align-items: center;
   padding: 12px;
   overflow-y: scroll;
-  background-color: white;
 }
 .container {
   display: grid;
