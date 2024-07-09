@@ -1,6 +1,6 @@
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { Html } from '@react-three/drei';
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 export default function EventListHtml() {
   const { eventList } = useShibaEventStore();
 

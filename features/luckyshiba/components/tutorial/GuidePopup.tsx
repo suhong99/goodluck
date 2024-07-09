@@ -1,4 +1,4 @@
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 import { tutorials } from './content';
 import { useStep } from './hooks/useStep';
 import HideButton from './control/HideButton';

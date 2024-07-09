@@ -1,6 +1,6 @@
 import { EventResultProps } from '@/shared/constants/shibaEvent';
 import Image from 'next/image';
-import styles from '@/app/luckyshiba/luckyshiba.module.css';
+import styles from '@/app/(enforcement)/luckyshiba/luckyshiba.module.css';
 
 export default function EventResult({ event }: { event: EventResultProps }) {
   const { type, img, percent, copyright } = event;
