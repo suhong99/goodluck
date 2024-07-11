@@ -62,6 +62,7 @@ type ShibaEventType = {
 </div>
 
 ## 폴더 구조
+[폴더 구조에 대한 생각 및 피드백](https://ungumungum.tistory.com/130)
 ```md
 ┣ 📂app                     : Next.js 앱 라우터에 의해 관리되고 라우팅 구조를 정의하는 코드
 ┣ 📂features                : 페이지 별로 코드를 관리
