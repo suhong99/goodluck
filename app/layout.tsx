@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/shared/styles';
 import Header from '@/shared/components/header';
+import JSONLD from '@/shared/components/JsonLD';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,6 +37,8 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Header />
+        <JSONLD />
+
         <main>{children}</main>
         <div id="root-portal" />
       </body>
