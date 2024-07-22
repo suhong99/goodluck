@@ -1,10 +1,9 @@
 'use client';
 
-import { Group, Mesh, MeshBasicMaterial, Vector3 } from 'three';
+import { Mesh, MeshBasicMaterial, Vector3 } from 'three';
 import React, { useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF, OrbitControls as OrbitControlsRef } from 'three-stdlib';
-import { useCompoundBody } from '@react-three/cannon';
 import { useFrame } from '@react-three/fiber';
 
 import { useMovePosition } from '../../hooks/useMovePosition';
@@ -58,11 +57,13 @@ export function Shiba() {
     },
   });
 
+  //
   const controlMovement = useMovePosition({
     worldDirection,
     worldPosition,
     chassisApi,
     chassisBody,
+    inputState: { left, right, forward, backward, jump },
   });
 
   const orbitControlsRef = useRef<OrbitControlsRef>(null);
