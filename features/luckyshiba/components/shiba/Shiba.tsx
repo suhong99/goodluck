@@ -1,6 +1,6 @@
 'use client';
 
-import { Group, Mesh, MeshBasicMaterial, Quaternion, Vector3 } from 'three';
+import { Group, Mesh, MeshBasicMaterial, Vector3 } from 'three';
 import React, { useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF, OrbitControls as OrbitControlsRef } from 'three-stdlib';
@@ -21,6 +21,7 @@ import { checkNewEvent } from '@/remote/shiba';
 import { useShibaEventStore } from '@/store/shibaEvent';
 import { useShowingProcessStore } from '@/store/showingProcess';
 import { useSession } from 'next-auth/react';
+import { useShibaBody } from '../../hooks/useShibaBody';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -43,39 +44,19 @@ export function Shiba() {
     useShibaStore();
 
   const { setIsVisible } = useShowingProcessStore();
-  const position: [x: number, y: number, z: number] = [0, 1, 0];
   const { left, right, forward, backward, jump } = useInput();
   const isMoving = forward || backward || left || right;
-  const width = 0.65;
-  const height = 1.2;
-  const front = 0.6;
-  const mass = 100;
+
   const { open } = useModalContext();
   const { data } = useSession();
 
-  const chassisBodyArgs = [width, height, front * 2];
   const { eventList, setEventStatus } = useShibaEventStore();
 
-  const [chassisBody, chassisApi] = useCompoundBody(
-    () => ({
-      position,
-      mass: mass,
-      rotation: [0, 0, 0],
-      collisionFilterGroup: 5,
-      angularDamping: 0.95,
-      onCollide: () => {
-        !isLanded && setIsLanded(true);
-      },
-      shapes: [
-        {
-          args: chassisBodyArgs,
-          position: [0, 0, 0],
-          type: 'Box',
-        },
-      ],
-    }),
-    useRef<Group>(null)
-  );
+  const [chassisBody, chassisApi] = useShibaBody({
+    collideFn: () => {
+      !isLanded && setIsLanded(true);
+    },
+  });
 
   const controlMovement = useMovePosition({
     worldDirection,
@@ -110,8 +91,6 @@ export function Shiba() {
       blockEvent();
       eventByLocation(newLocation);
     }
-
-    //TODO : 이벤트추가 함수분리예정
 
     if (Math.abs(5.5 - x) < 1 && Math.abs(-2.8 - z) < 1 && y < 2) {
       setIsVisible(true);

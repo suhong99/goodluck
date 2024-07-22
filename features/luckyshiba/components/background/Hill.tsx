@@ -1,7 +1,7 @@
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/constants/model';
 import { useCompoundBody } from '@react-three/cannon';
 import { useRef } from 'react';
-import { HILL_SHAPE, SMALL_ROCKS } from './contants/collision';
+import { HILL_SHAPE, SMALL_ROCKS } from './collision.type';
 
 export default function Hill({
   nodes,
