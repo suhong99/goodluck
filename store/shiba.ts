@@ -3,7 +3,7 @@ import { create } from 'zustand';
 interface ShibaState {
   eventable: boolean;
   isLanded: boolean;
-  blockEvent: () => void;
+  applyEventCooldown: () => void;
   getEventableState: () => void;
   setIsLanded: (newState: boolean) => void;
 }
@@ -11,7 +11,7 @@ interface ShibaState {
 export const useShibaStore = create<ShibaState>()((set) => ({
   eventable: false,
   isLanded: false,
-  blockEvent: () => {
+  applyEventCooldown: () => {
     set((state) => ({
       ...state,
       eventable: false,

@@ -5,22 +5,15 @@ import React, { useMemo, useRef } from 'react';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF, OrbitControls as OrbitControlsRef } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
-
+import { useShibaStore } from '@/store/shiba';
+import { useShowingProcessStore } from '@/store/showingProcess';
+import { ShibaLocation } from '@/shared/constants/model';
+import { useModalContext } from '@/shared/components/portal/ModalContext';
 import { useMovePosition } from '../../hooks/useMovePosition';
 import { useInput } from '../../hooks/useInput';
-import { useShibaStore } from '@/store/shiba';
-import { ShibaLocation } from '@/shared/constants/model';
-import {
-  EventResultProps,
-  SHIBA_EVENT,
-  ShibaEvent,
-} from '@/shared/constants/shibaEvent';
-import { useModalContext } from '@/shared/components/portal/ModalContext';
-import { checkNewEvent } from '@/remote/shiba';
-import { useShibaEventStore } from '@/store/shibaEvent';
-import { useShowingProcessStore } from '@/store/showingProcess';
-import { useSession } from 'next-auth/react';
 import { useShibaBody } from '../../hooks/useShibaBody';
+import { defineLocation, getRandomEvent } from './shiba.util';
+import { useEventProcess } from '../../hooks/useEventProcess';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -39,17 +32,18 @@ export function Shiba() {
   const { nodes, materials } = useGLTF('/models/shiba.glb') as GLTFResult;
   const worldPosition = useMemo(() => new Vector3(), []);
   const worldDirection = useMemo(() => new Vector3(), []);
-  const { eventable, blockEvent, isLanded, setIsLanded, getEventableState } =
-    useShibaStore();
-
-  const { setIsVisible } = useShowingProcessStore();
+  const {
+    eventable,
+    applyEventCooldown,
+    isLanded,
+    setIsLanded,
+    getEventableState,
+  } = useShibaStore();
+  const { isWatchingProcess } = useShowingProcessStore();
+  const renewProcess = useEventProcess();
+  const { open } = useModalContext();
   const { left, right, forward, backward, jump } = useInput();
   const isMoving = forward || backward || left || right;
-
-  const { open } = useModalContext();
-  const { data } = useSession();
-
-  const { eventList, setEventStatus } = useShibaEventStore();
 
   const [chassisBody, chassisApi] = useShibaBody({
     collideFn: () => {
@@ -57,7 +51,6 @@ export function Shiba() {
     },
   });
 
-  //
   const controlMovement = useMovePosition({
     worldDirection,
     worldPosition,
@@ -67,7 +60,6 @@ export function Shiba() {
   });
 
   const orbitControlsRef = useRef<OrbitControlsRef>(null);
-
   const makeFollowCam = () => {
     chassisBody?.current!.getWorldPosition(worldPosition);
     chassisBody?.current!.getWorldDirection(worldDirection);
@@ -76,67 +68,28 @@ export function Shiba() {
     }
   };
 
-  const checkMapType = () => {
+  const interactByPosition = () => {
     const { x, y, z } = new Vector3().setFromMatrixPosition(
       chassisBody.current!.matrixWorld
     );
-    let newLocation: ShibaLocation;
-
-    if (y < 1.1) {
-      newLocation = x > 10.5 && z > 4 ? '언덕' : '강';
-    } else {
-      newLocation = x >= 2.5 ? '언덕' : '집';
-    }
-
-    if (eventable) {
-      blockEvent();
-      eventByLocation(newLocation);
-    }
-
-    if (Math.abs(5.5 - x) < 1 && Math.abs(-2.8 - z) < 1 && y < 2) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
+    const isWatching = isWatchingProcess(x, y, z);
+    if (!isWatching && eventable) {
+      const currentLoation = defineLocation(x, y, z);
+      applyEventCooldown();
+      triggerEvent(currentLoation);
     }
   };
 
-  const eventByLocation = (location: ShibaLocation) => {
-    const occurableEvents = SHIBA_EVENT[location];
-    const selectedEvent = getRandomEvent(occurableEvents);
+  const triggerEvent = (location: ShibaLocation) => {
+    const selectedEvent = getRandomEvent(location);
     open({ type: 'shiba', event: selectedEvent }, getEventableState);
-    const userId = data?.user?.email;
-    if (!eventList[selectedEvent.type]) {
-      setEventStatus(selectedEvent.type);
-      userId &&
-        checkNewEvent({
-          id: userId,
-          type: selectedEvent.type,
-        });
-    }
-  };
-
-  const getRandomEvent = (eventList: ShibaEvent[]): EventResultProps => {
-    const totalWeight = eventList.reduce((sum, event) => sum + event.weight, 0);
-    let random = Math.random() * totalWeight;
-
-    for (const event of eventList) {
-      const { weight } = event;
-      if (random < weight) {
-        return { ...event, percent: Math.floor((weight / totalWeight) * 100) };
-      }
-      random -= event.weight;
-    }
-    return {
-      ...eventList[eventList.length - 1],
-      percent:
-        Math.floor(eventList[eventList.length - 1].weight / totalWeight) * 100,
-    };
+    renewProcess(selectedEvent);
   };
 
   useFrame((_, delta) => {
     makeFollowCam();
     controlMovement(delta);
-    !jump && isLanded && isMoving && checkMapType();
+    !jump && isLanded && isMoving && interactByPosition();
   });
 
   return (
