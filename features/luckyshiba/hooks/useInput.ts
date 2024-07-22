@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react';
 
-type InputState = {
+export type KeyboardEventState = {
   forward: boolean;
   backward: boolean;
   left: boolean;
   right: boolean;
   jump: boolean;
-  stand: boolean;
 };
 
 type KeyMap = {
-  [key: string]: keyof InputState;
+  [key: string]: keyof KeyboardEventState;
 };
 
-export const useInput = (): InputState => {
-  const [input, setInput] = useState<InputState>({
+export const useInput = (): KeyboardEventState => {
+  const [input, setInput] = useState<KeyboardEventState>({
     forward: false,
     backward: false,
     left: false,
     right: false,
     jump: false,
-    stand: false,
   });
 
   useEffect(() => {
@@ -30,10 +28,11 @@ export const useInput = (): InputState => {
       KeyA: 'left',
       KeyD: 'right',
       Space: 'jump',
-      KeyR: 'stand',
     };
 
-    const findKey = (key: string): keyof InputState | undefined => keys[key];
+    // 키를 찾는 함수
+    const findKey = (key: string): keyof KeyboardEventState | undefined =>
+      keys[key];
 
     const handleKeyDown = (e: KeyboardEvent): void => {
       const key = findKey(e.code);

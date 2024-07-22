@@ -1,13 +1,15 @@
 import { Group, Object3DEventMap, Quaternion, Vector3 } from 'three';
-import { useInput } from './useInput';
+import { KeyboardEventState, useInput } from './useInput';
 import { PublicApi } from '@react-three/cannon';
 import { useMemo } from 'react';
 import { useShibaStore } from '@/store/shiba';
+
 type MovePositionProps = {
   worldPosition: Vector3;
   worldDirection: Vector3;
   chassisApi: PublicApi;
   chassisBody: React.RefObject<Group<Object3DEventMap>>;
+  inputState: KeyboardEventState;
 };
 
 export const useMovePosition = ({
@@ -15,15 +17,17 @@ export const useMovePosition = ({
   worldPosition,
   chassisApi,
   chassisBody,
+  inputState,
 }: MovePositionProps) => {
-  const { forward, backward, left, right, jump, stand } = useInput();
+  const { forward, backward, left, right, jump } = inputState;
   const worldQuaternion = useMemo(() => new Quaternion(), []);
-  const { isLanded, setIsLanded, blockEvent, eventable } = useShibaStore();
+  const { isLanded, setIsLanded } = useShibaStore();
+
   const controlMovement = (delta: number) => {
     if (forward || backward) {
       const speed = delta * 7;
       let { x, y, z } = worldPosition;
-      let { x: rx, y: ry, z: rz } = worldDirection;
+      let { x: rx, y: _, z: rz } = worldDirection;
       let [newX, newY, newZ] = [x, y, z];
 
       if (forward) {

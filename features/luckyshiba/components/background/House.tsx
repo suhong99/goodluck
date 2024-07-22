@@ -1,7 +1,7 @@
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/constants/model';
 import { useCompoundBody } from '@react-three/cannon';
 import { useRef } from 'react';
-import { HOUSE_GROUND, HOUSE_SHAPE, HOUSE_STAIR } from './contants/collision';
+import { HOUSE_GROUND, HOUSE_SHAPE, HOUSE_STAIR } from './collision.type';
 
 export default function House({
   nodes,

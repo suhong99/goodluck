@@ -1,6 +1,6 @@
 import { ShibaBGMaterials, ShibaBGNodes } from '@/shared/constants/model';
 import { useCompoundBody } from '@react-three/cannon';
-import { BRIDGE_UNDER, BRIDGE_UPPER } from './contants/collision';
+import { BRIDGE_UNDER, BRIDGE_UPPER } from './collision.type';
 import { useRef } from 'react';
 
 export default function Bridge({
