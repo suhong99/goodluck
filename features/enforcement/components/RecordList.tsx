@@ -3,6 +3,7 @@
 import { useEnforceStore } from '@/store/enforcecement';
 import React from 'react';
 import style from '@/app/(enforcement)/enforcement.module.css';
+import { Enforcement } from '@/remote/models/enforcement';
 
 export default function RecordList() {
   const { records } = useEnforceStore();
@@ -20,11 +21,7 @@ export default function RecordList() {
 function RendorRecords({
   recordList,
 }: {
-  recordList: {
-    id: number;
-    percent: number;
-    status: '성공' | '실패';
-  }[];
+  recordList: (Pick<Enforcement, 'percent' | 'status'> & { id: number })[];
 }) {
   return (
     <div className={style.subRecordList}>
