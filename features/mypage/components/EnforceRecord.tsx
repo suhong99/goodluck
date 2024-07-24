@@ -2,20 +2,13 @@ import { getAndCleanupEnforceRecords } from '@/remote/enforcement';
 import { convertTimestampToKoreanDate } from '@/shared/utils/date';
 import styles from '@/app/mypage/mypage.module.css';
 import { RecordProps } from '../constants/model';
-import { Timestamp } from 'firebase/firestore';
 import RecordSection from './RecordSection';
-
-interface EnforceContent {
-  id: string;
-  percent: number;
-  status: string;
-  date: Timestamp;
-}
+import { Enforcement } from '@/remote/models/enforcement';
 
 export default async function EnforceRecord({ userEmail }: RecordProps) {
   const records = await getAndCleanupEnforceRecords(userEmail);
 
-  const renderItem = ({ id, percent, status, date }: EnforceContent) => (
+  const renderItem = ({ id, percent, status, date }: Enforcement) => (
     <li
       key={id}
       className={`${styles.recordItem} ${

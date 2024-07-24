@@ -2,15 +2,9 @@ import { eventCheckList } from '@/remote/shiba';
 import { convertTimestampToKoreanDate } from '@/shared/utils/date';
 import styles from '@/app/mypage/mypage.module.css';
 import { SHIBA_EVENT } from '@/shared/constants/shibaEvent';
-import { Timestamp } from 'firebase/firestore';
 import RecordSection from './RecordSection';
 import { RecordProps } from '../constants/model';
-
-interface ShibaRecordContent {
-  id: string;
-  type: string;
-  date: Timestamp;
-}
+import { ShibaRecord as ShibaRecordType } from '@/remote/models/shiba';
 
 export default async function ShibaRecord({ userEmail }: RecordProps) {
   const result = await eventCheckList(userEmail);
@@ -19,7 +13,7 @@ export default async function ShibaRecord({ userEmail }: RecordProps) {
     0
   );
 
-  const renderItem = ({ id, type, date }: ShibaRecordContent) => (
+  const renderItem = ({ id, type, date }: ShibaRecordType) => (
     <li key={id} className={styles.recordItem}>
       <span>{convertTimestampToKoreanDate(date)}</span>
       <span>{type}</span>

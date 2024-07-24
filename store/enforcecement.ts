@@ -1,15 +1,17 @@
+import { Enforcement, EnforceStatus } from '@/remote/models/enforcement';
+import { ExtendUnion } from '@/shared/utils/type';
 import { create } from 'zustand';
 
 interface EnforceState {
-  status: '성공' | '실패' | '미도전';
+  status: ExtendUnion<EnforceStatus, '미도전'>;
   trial: number;
-  records: { id: number; percent: number; status: '성공' | '실패' }[];
+  records: (Pick<Enforcement, 'percent' | 'status'> & { id: number })[];
   update: ({
     percent,
     status,
   }: {
     percent: number;
-    status: '성공' | '실패';
+    status: EnforceStatus;
   }) => void;
 }
 
