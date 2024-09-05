@@ -86,11 +86,33 @@
   color: gray;
 }
 
+.l_signin {
+  display: block;
+}
+
+.s_signin {
+  display: none;
+}
+
+.s_signin > p {
+  font-size: smaller;
+}
+
 @media (max-width: 600px) {
   .active {
     font-size: medium;
   }
   .inactive {
     font-size: small;
+  }
+
+  .l_signin {
+    display: none;
+  }
+
+  .s_signin {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
