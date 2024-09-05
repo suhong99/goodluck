@@ -26,7 +26,7 @@ export function SignIn() {
             width={40}
             height={40}
           />
-          <p>유저 메뉴</p>
+          <p>로그인</p>
         </div>
       </button>
     </form>
