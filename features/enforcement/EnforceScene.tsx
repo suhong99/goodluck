@@ -8,7 +8,7 @@ import { useEnforceStore } from '@/store/enforcecement';
 
 export default function EnforceScene() {
   const sword = useLoader(GLTFLoader, '/models/medieval_sword.glb');
-  const { status } = useEnforceStore();
+  const status = useEnforceStore((state) => state.status);
 
   return (
     <>

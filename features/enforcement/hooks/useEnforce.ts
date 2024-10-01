@@ -7,7 +7,7 @@ import { checkSuccess } from '@/shared/utils/checker';
 export const useEnforce = (percent: number) => {
   const [result, setResult] = useState('강화를 시도해주세요');
   const email = useUserEmail();
-  const { update } = useEnforceStore();
+  const update = useEnforceStore((state) => state.update);
 
   const onEnforce = () => {
     const isSuccess = checkSuccess(percent);

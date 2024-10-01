@@ -21,7 +21,10 @@ export const useMovePosition = ({
 }: MovePositionProps) => {
   const { forward, backward, left, right, jump } = inputState;
   const worldQuaternion = useMemo(() => new Quaternion(), []);
-  const { isLanded, setIsLanded } = useShibaStore();
+  const { isLanded, setIsLanded } = useShibaStore((state) => ({
+    isLanded: state.isLanded,
+    setIsLanded: state.setIsLanded,
+  }));
 
   const controlMovement = (delta: number) => {
     if (forward || backward) {

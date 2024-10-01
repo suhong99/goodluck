@@ -6,7 +6,7 @@ import style from '@/app/(enforcement)/enforcement.module.css';
 import { Enforcement } from '@/remote/models/enforcement';
 
 export default function RecordList() {
-  const { records } = useEnforceStore();
+  const records = useEnforceStore((state) => state.records);
   const firstTenRecords = records.slice(0, 10);
   const lastTenRecords = records.slice(10);
 
@@ -38,7 +38,7 @@ function RendorRecords({
 }
 
 export function MobileRecordList() {
-  const { records } = useEnforceStore();
+  const records = useEnforceStore((state) => state.records);
 
   return (
     <div className={style.mobileList}>

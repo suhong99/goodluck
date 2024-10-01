@@ -39,7 +39,9 @@ export function Shiba() {
     setIsLanded,
     getEventableState,
   } = useShibaStore();
-  const { isWatchingProcess } = useShowingProcessStore();
+  const isWatchingProcess = useShowingProcessStore(
+    (state) => state.isWatchingProcess
+  );
   const renewProcess = useEventProcess();
   const { open } = useModalContext();
   const { left, right, forward, backward, jump } = useInput();
