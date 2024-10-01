@@ -8,8 +8,10 @@ import { useSession } from 'next-auth/react';
 
 export default function TutorialOpener() {
   const { open } = useModalContext();
-  const { getEventableState } = useShibaStore();
-  const { syncEventStatusWithDB } = useShibaEventStore();
+  const getEventableState = useShibaStore((state) => state.getEventableState);
+  const syncEventStatusWithDB = useShibaEventStore(
+    (state) => state.syncEventStatusWithDB
+  );
   const { data } = useSession();
   useEffect(() => {
     const skipTutorial = localStorage.getItem(MANUAL_SKIP);
