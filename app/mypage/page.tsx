@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 
 const records = [
   { type: 'ENFORCE', component: EnforceRecord },
-  { type: 'SHIBA', component: ShibaRecord },
+  // { type: 'SHIBA', component: ShibaRecord },
 ];
 
 export const metadata: Metadata = {
